@@ -1,0 +1,14 @@
+parsed by: local-rules / rule-parser-v1  (4 ms)  mode=LOCAL  fallback_to_local=False
+  [medium] set stitch type - outer_ring (stitch_type: input_c, width_mm: 2.5)
+  [medium] set fabric (fabric: DENIM)
+  [low   ] set underlay - outer_ring (underlay: zigzag+edge_run)
+  [low   ] protect - monogram
+  [low   ] set color - outer_ring (color_hex: #C9A227)
+risk=medium  CONFIRM mode: approval required  status=pending
+  stitch_count: 5432 -> 5765
+  jump_count: 193 -> 193
+  trim_count: 82 -> 82
+  center_crossing_travel: 0 -> 0
+  short_stitch_count: 8 -> 8
+  qc_errors: 0 -> 0
+APPLIED. history: 1 step(s); undo available: True

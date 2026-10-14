@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "embroidery-ai-copilot"
+dynamic = ["version"]
+description = "AI-assisted, object-based embroidery digitizing + production QC toolkit (v0.6): vector glyph lettering, curved text, satin/Input C v2, protected-zone travel, QC v2 with export gating, validated DST/EXP export. Native EMB / Wilcom automation is REQUIRES_WILCOM_CONFIGURATION (no fake files). Not guaranteed production-ready: requires sew-out validation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+# Phase 1 (analyze/qc) has zero dependencies by design -- see README
+# "Offline-first". Phase 2's vision engine (blueprint/technical-plan/
+# simulate subcommands) needs opencv-python + numpy, which are declared as
+# the optional "vision" extra rather than a hard dependency, so installing
+# just the QC analyzer stays dependency-free.
+dependencies = []
+
+[project.optional-dependencies]
+vision = ["opencv-python>=4.5", "numpy>=1.23", "fonttools>=4.40"]
+dev = ["pytest>=7.0", "opencv-python>=4.5", "numpy>=1.23", "Pillow>=9.0", "fonttools>=4.40"]
+
+[project.scripts]
+embcopilot = "embcopilot.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.setuptools.dynamic]
+version = { attr = "embcopilot.__version__" }
+
+[tool.setuptools.package-data]
+embcopilot = ["demo_reference.png", "web/static/*.html"]

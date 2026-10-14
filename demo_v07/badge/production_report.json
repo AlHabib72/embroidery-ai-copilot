@@ -1,0 +1,913 @@
+{
+ "qc_before": {
+  "errors": 1,
+  "codes": [
+   "CENTER_CROSSING_TRAVEL",
+   "EXCESSIVE_JUMP",
+   "ZERO_LENGTH_STITCH"
+  ]
+ },
+ "qc_after": {
+  "machine": "generic_flat",
+  "issues": [
+   {
+    "code": "EXCESSIVE_JUMP",
+    "severity": "WARNING",
+    "category": "Pathing QC",
+    "message": "193 jumps for 5432 stitches (35.5/1000, limit 12)",
+    "object_id": null,
+    "count": 193,
+    "regions": [
+     [
+      96.6,
+      50.0
+     ],
+     [
+      82.5,
+      23.58
+     ],
+     [
+      80.67,
+      21.33
+     ],
+     [
+      83.23,
+      23.81
+     ],
+     [
+      81.24,
+      21.82
+     ],
+     [
+      82.05,
+      23.22
+     ],
+     [
+      80.91,
+      22.68
+     ],
+     [
+      80.03,
+      22.39
+     ],
+     [
+      81.42,
+      23.78
+     ],
+     [
+      80.58,
+      23.54
+     ],
+     [
+      79.66,
+      22.61
+     ],
+     [
+      79.7,
+      23.25
+     ],
+     [
+      80.78,
+      24.33
+     ],
+     [
+      80.26,
+      24.4
+     ],
+     [
+      79.02,
+      23.17
+     ],
+     [
+      79.37,
+      24.11
+     ],
+     [
+      80.15,
+      24.89
+     ],
+     [
+      78.39,
+      23.72
+     ],
+     [
+      79.05,
+      24.97
+     ],
+     [
+      77.76,
+      24.28
+     ]
+    ]
+   }
+  ],
+  "metrics": {
+   "object_count": 25,
+   "stitch_count": 5432,
+   "jump_count": 193,
+   "jump_moves": 193,
+   "trim_count": 82,
+   "color_count": 1,
+   "bbox_mm": [
+    2.91,
+    2.9,
+    97.1,
+    97.1
+   ],
+   "center_crossing_travel": 0,
+   "short_stitch_count": 8,
+   "estimated_minutes": 17.25
+  },
+  "categories": {
+   "Geometry QC": {
+    "errors": 0,
+    "warnings": 0
+   },
+   "Vision QC": {
+    "errors": 0,
+    "warnings": 0
+   },
+   "Object QC": {
+    "errors": 0,
+    "warnings": 0
+   },
+   "Stitch QC": {
+    "errors": 0,
+    "warnings": 0
+   },
+   "Pathing QC": {
+    "errors": 0,
+    "warnings": 1
+   },
+   "Fabric QC": {
+    "errors": 0,
+    "warnings": 0
+   },
+   "Thread QC": {
+    "errors": 0,
+    "warnings": 0
+   },
+   "Export QC": {
+    "errors": 0,
+    "warnings": 0
+   },
+   "Reference QC": {
+    "errors": 0,
+    "warnings": 0
+   }
+  },
+  "error_count": 0,
+  "wording": "QC validated; requires sew-out validation (no production guarantee)"
+ },
+ "diff": {
+  "metrics": {
+   "object_count": {
+    "old": 25,
+    "new": 25,
+    "delta": 0
+   },
+   "stitch_count": {
+    "old": 5440,
+    "new": 5432,
+    "delta": -8
+   },
+   "jump_count": {
+    "old": 193,
+    "new": 193,
+    "delta": 0
+   },
+   "jump_moves": {
+    "old": 193,
+    "new": 193,
+    "delta": 0
+   },
+   "trim_count": {
+    "old": 6,
+    "new": 82,
+    "delta": 76
+   },
+   "color_count": {
+    "old": 1,
+    "new": 1,
+    "delta": 0
+   },
+   "center_crossing_travel": {
+    "old": 25,
+    "new": 0,
+    "delta": -25
+   },
+   "short_stitch_count": {
+    "old": 16,
+    "new": 8,
+    "delta": -8
+   },
+   "estimated_minutes": {
+    "old": 9.66,
+    "new": 17.25,
+    "delta": 7.59
+   },
+   "travel_mm": {
+    "old": 1297.7,
+    "new": 1297.7,
+    "delta": 0.0
+   },
+   "bbox_mm": {
+    "old": [
+     2.91,
+     2.9,
+     97.1,
+     97.1
+    ],
+    "new": [
+     2.91,
+     2.9,
+     97.1,
+     97.1
+    ],
+    "delta": null
+   }
+  },
+  "improved": [
+   "center_crossing_travel",
+   "short_stitch_count"
+  ],
+  "worse": [
+   "trim_count"
+  ],
+  "note": "metrics are measured from the two StitchPlans; fewer is not automatically better (see trims vs thread dragged)"
+ },
+ "travel": {
+  "trims_added": 76,
+  "rerouted": 0,
+  "kept_as_jump": 111,
+  "warnings": [],
+  "decisions": [
+   {
+    "at": 2014,
+    "action": "trim_jump",
+    "distance_mm": 3.0,
+    "reason": "visible travel 3.0 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2088,
+    "action": "trim_jump",
+    "distance_mm": 3.0,
+    "reason": "visible travel 3.0 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2091,
+    "action": "trim_jump",
+    "distance_mm": 8.1,
+    "reason": "visible travel 8.1 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2096,
+    "action": "trim_jump",
+    "distance_mm": 3.5,
+    "reason": "visible travel 3.5 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2154,
+    "action": "trim_jump",
+    "distance_mm": 7.9,
+    "reason": "visible travel 7.9 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2195,
+    "action": "trim_jump",
+    "distance_mm": 7.7,
+    "reason": "visible travel 7.7 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2238,
+    "action": "trim_jump",
+    "distance_mm": 5.7,
+    "reason": "visible travel 5.7 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2270,
+    "action": "trim_jump",
+    "distance_mm": 5.8,
+    "reason": "visible travel 5.8 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2276,
+    "action": "trim_jump",
+    "distance_mm": 3.0,
+    "reason": "visible travel 3.0 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2282,
+    "action": "trim_jump",
+    "distance_mm": 3.4,
+    "reason": "visible travel 3.4 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2336,
+    "action": "trim_jump",
+    "distance_mm": 3.9,
+    "reason": "visible travel 3.9 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2389,
+    "action": "trim_jump",
+    "distance_mm": 8.8,
+    "reason": "visible travel 8.8 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2457,
+    "action": "trim_jump",
+    "distance_mm": 5.3,
+    "reason": "visible travel 5.3 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2472,
+    "action": "trim_jump",
+    "distance_mm": 7.6,
+    "reason": "visible travel 7.6 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2478,
+    "action": "trim_jump",
+    "distance_mm": 3.0,
+    "reason": "visible travel 3.0 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2504,
+    "action": "trim_jump",
+    "distance_mm": 3.9,
+    "reason": "visible travel 3.9 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2522,
+    "action": "trim_jump",
+    "distance_mm": 6.6,
+    "reason": "visible travel 6.6 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2527,
+    "action": "trim_jump",
+    "distance_mm": 3.1,
+    "reason": "visible travel 3.1 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2551,
+    "action": "trim_jump",
+    "distance_mm": 3.2,
+    "reason": "visible travel 3.2 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2556,
+    "action": "trim_jump",
+    "distance_mm": 3.3,
+    "reason": "visible travel 3.3 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2561,
+    "action": "trim_jump",
+    "distance_mm": 3.2,
+    "reason": "visible travel 3.2 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2581,
+    "action": "trim_jump",
+    "distance_mm": 5.2,
+    "reason": "visible travel 5.2 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2588,
+    "action": "trim_jump",
+    "distance_mm": 4.3,
+    "reason": "visible travel 4.3 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2666,
+    "action": "trim_jump",
+    "distance_mm": 8.2,
+    "reason": "visible travel 8.2 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2733,
+    "action": "trim_jump",
+    "distance_mm": 9.6,
+    "reason": "visible travel 9.6 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2800,
+    "action": "trim_jump",
+    "distance_mm": 7.2,
+    "reason": "visible travel 7.2 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2832,
+    "action": "trim_jump",
+    "distance_mm": 5.5,
+    "reason": "visible travel 5.5 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2883,
+    "action": "trim_jump",
+    "distance_mm": 10.0,
+    "reason": "visible travel 10.0 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2919,
+    "action": "trim_jump",
+    "distance_mm": 3.1,
+    "reason": "visible travel 3.1 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2922,
+    "action": "trim_jump",
+    "distance_mm": 3.4,
+    "reason": "visible travel 3.4 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2927,
+    "action": "trim_jump",
+    "distance_mm": 6.3,
+    "reason": "visible travel 6.3 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 2987,
+    "action": "trim_jump",
+    "distance_mm": 7.5,
+    "reason": "visible travel 7.5 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 3051,
+    "action": "trim_jump",
+    "distance_mm": 8.1,
+    "reason": "visible travel 8.1 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4575,
+    "action": "trim_jump",
+    "distance_mm": 29.9,
+    "reason": "visible travel 29.9 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4723,
+    "action": "trim_jump",
+    "distance_mm": 16.5,
+    "reason": "visible travel 16.5 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4726,
+    "action": "trim_jump",
+    "distance_mm": 16.3,
+    "reason": "visible travel 16.3 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4735,
+    "action": "trim_jump",
+    "distance_mm": 15.6,
+    "reason": "visible travel 15.6 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4740,
+    "action": "trim_jump",
+    "distance_mm": 14.9,
+    "reason": "visible travel 14.9 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4749,
+    "action": "trim_jump",
+    "distance_mm": 14.2,
+    "reason": "visible travel 14.2 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4756,
+    "action": "trim_jump",
+    "distance_mm": 13.5,
+    "reason": "visible travel 13.5 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4765,
+    "action": "trim_jump",
+    "distance_mm": 12.8,
+    "reason": "visible travel 12.8 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4774,
+    "action": "trim_jump",
+    "distance_mm": 12.1,
+    "reason": "visible travel 12.1 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4783,
+    "action": "trim_jump",
+    "distance_mm": 11.4,
+    "reason": "visible travel 11.4 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4794,
+    "action": "trim_jump",
+    "distance_mm": 10.7,
+    "reason": "visible travel 10.7 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4803,
+    "action": "trim_jump",
+    "distance_mm": 10.0,
+    "reason": "visible travel 10.0 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4816,
+    "action": "trim_jump",
+    "distance_mm": 9.3,
+    "reason": "visible travel 9.3 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4825,
+    "action": "trim_jump",
+    "distance_mm": 8.6,
+    "reason": "visible travel 8.6 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4839,
+    "action": "trim_jump",
+    "distance_mm": 7.9,
+    "reason": "visible travel 7.9 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4848,
+    "action": "trim_jump",
+    "distance_mm": 7.3,
+    "reason": "visible travel 7.3 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4862,
+    "action": "trim_jump",
+    "distance_mm": 6.6,
+    "reason": "visible travel 6.6 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4872,
+    "action": "trim_jump",
+    "distance_mm": 5.9,
+    "reason": "visible travel 5.9 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4885,
+    "action": "trim_jump",
+    "distance_mm": 5.2,
+    "reason": "visible travel 5.2 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4894,
+    "action": "trim_jump",
+    "distance_mm": 4.5,
+    "reason": "visible travel 4.5 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4908,
+    "action": "trim_jump",
+    "distance_mm": 3.8,
+    "reason": "visible travel 3.8 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 4917,
+    "action": "trim_jump",
+    "distance_mm": 3.1,
+    "reason": "visible travel 3.1 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5262,
+    "action": "trim_jump",
+    "distance_mm": 30.0,
+    "reason": "visible travel 30.0 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5290,
+    "action": "trim_jump",
+    "distance_mm": 25.3,
+    "reason": "visible travel 25.3 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5296,
+    "action": "trim_jump",
+    "distance_mm": 24.2,
+    "reason": "visible travel 24.2 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5304,
+    "action": "trim_jump",
+    "distance_mm": 23.0,
+    "reason": "visible travel 23.0 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5312,
+    "action": "trim_jump",
+    "distance_mm": 21.9,
+    "reason": "visible travel 21.9 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5320,
+    "action": "trim_jump",
+    "distance_mm": 20.7,
+    "reason": "visible travel 20.7 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5327,
+    "action": "trim_jump",
+    "distance_mm": 19.6,
+    "reason": "visible travel 19.6 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5335,
+    "action": "trim_jump",
+    "distance_mm": 18.4,
+    "reason": "visible travel 18.4 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5344,
+    "action": "trim_jump",
+    "distance_mm": 17.3,
+    "reason": "visible travel 17.3 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5353,
+    "action": "trim_jump",
+    "distance_mm": 16.1,
+    "reason": "visible travel 16.1 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5363,
+    "action": "trim_jump",
+    "distance_mm": 15.0,
+    "reason": "visible travel 15.0 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5371,
+    "action": "trim_jump",
+    "distance_mm": 13.8,
+    "reason": "visible travel 13.8 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5383,
+    "action": "trim_jump",
+    "distance_mm": 12.7,
+    "reason": "visible travel 12.7 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5392,
+    "action": "trim_jump",
+    "distance_mm": 11.5,
+    "reason": "visible travel 11.5 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5405,
+    "action": "trim_jump",
+    "distance_mm": 10.4,
+    "reason": "visible travel 10.4 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5413,
+    "action": "trim_jump",
+    "distance_mm": 9.2,
+    "reason": "visible travel 9.2 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5428,
+    "action": "trim_jump",
+    "distance_mm": 8.1,
+    "reason": "visible travel 8.1 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5437,
+    "action": "trim_jump",
+    "distance_mm": 6.9,
+    "reason": "visible travel 6.9 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5454,
+    "action": "trim_jump",
+    "distance_mm": 5.8,
+    "reason": "visible travel 5.8 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5462,
+    "action": "trim_jump",
+    "distance_mm": 4.6,
+    "reason": "visible travel 4.6 mm > 1.7 mm: trim + jump"
+   },
+   {
+    "at": 5479,
+    "action": "trim_jump",
+    "distance_mm": 3.5,
+    "reason": "visible travel 3.5 mm > 1.7 mm: trim + jump"
+   }
+  ],
+  "original_strategy": "untrimmed jump",
+  "repair_strategy": "production-aware trim policy + protected-zone detour",
+  "reason": "thread dragged across visible fabric / protected region",
+  "impact": "+76 trims, 0 detours"
+ },
+ "cleanup": {
+  "classes": {
+   "corner": 14,
+   "accidental_isolated": 8,
+   "duplicate": 8
+  },
+  "removed": 8,
+  "merged": 0,
+  "preserved": 22
+ },
+ "gates": [
+  {
+   "gate": "Gate 1 - Geometry",
+   "passed": true,
+   "errors": []
+  },
+  {
+   "gate": "Gate 2 - Object",
+   "passed": true,
+   "errors": []
+  },
+  {
+   "gate": "Gate 3 - Stitch",
+   "passed": true,
+   "errors": []
+  },
+  {
+   "gate": "Gate 4 - Pathing",
+   "passed": true,
+   "errors": []
+  },
+  {
+   "gate": "Gate 5 - QC",
+   "passed": true,
+   "errors": []
+  }
+ ],
+ "zones": [
+  {
+   "zone_id": "zone_empty_1",
+   "kind": "enclosed_empty",
+   "reason": "enclosed empty region (e.g. centre of a ring); travel must not cross it",
+   "allow_override": false,
+   "points": 46
+  },
+  {
+   "zone_id": "zone_empty_2",
+   "kind": "enclosed_empty",
+   "reason": "enclosed empty region (e.g. centre of a ring); travel must not cross it",
+   "allow_override": false,
+   "points": 46
+  },
+  {
+   "zone_id": "zone_empty_3",
+   "kind": "enclosed_empty",
+   "reason": "enclosed empty region (e.g. centre of a ring); travel must not cross it",
+   "allow_override": false,
+   "points": 417
+  }
+ ],
+ "timings_s": {
+  "zones": 0.029,
+  "travel": 0.087,
+  "cleanup": 0.002,
+  "qc": 0.034,
+  "export": 0.154
+ },
+ "package": {
+  "generated": "2026-10-07T11:13:28",
+  "files": {
+   "design.svg": {
+    "status": "EXPORTED",
+    "kind": "technical_render"
+   },
+   "preview.png": {
+    "status": "EXPORTED",
+    "kind": "technical_render"
+   },
+   "qc.json": {
+    "status": "EXPORTED"
+   },
+   "design.dst": {
+    "status": "EXPORTED_VERIFIED",
+    "bytes": 18206,
+    "caveat": "",
+    "expert_override": false
+   },
+   "design.exp": {
+    "status": "EXPORTED_VERIFIED",
+    "bytes": 12724,
+    "caveat": "verified against this project's reader only; open in your embroidery software before sewing",
+    "expert_override": false
+   },
+   "design.pes": {
+    "status": "UNAVAILABLE",
+    "reason": "needs Brother PEC colour table + thumbnail block, not shipped; a guessed file would misstate colours"
+   },
+   "design.emb": {
+    "status": "REQUIRES_WILCOM_CONFIGURATION",
+    "reason": "no supported Wilcom API/workflow configured; native EMB creation and editing are UNAVAILABLE",
+    "alternatives": [
+     "design.dst",
+     "design.exp"
+    ]
+   },
+   "metadata.json": {
+    "status": "EXPORTED"
+   }
+  },
+  "metrics": {
+   "object_count": 25,
+   "stitch_count": 5432,
+   "jump_count": 193,
+   "jump_moves": 193,
+   "trim_count": 82,
+   "color_count": 1,
+   "bbox_mm": [
+    2.91,
+    2.9,
+    97.1,
+    97.1
+   ],
+   "center_crossing_travel": 0,
+   "short_stitch_count": 8,
+   "estimated_minutes": 17.25
+  },
+  "wording": "production-oriented, QC validated, machine-format validated; requires sew-out validation",
+  "machine": "generic_flat",
+  "diff": {
+   "metrics": {
+    "object_count": {
+     "old": 25,
+     "new": 25,
+     "delta": 0
+    },
+    "stitch_count": {
+     "old": 5440,
+     "new": 5432,
+     "delta": -8
+    },
+    "jump_count": {
+     "old": 193,
+     "new": 193,
+     "delta": 0
+    },
+    "jump_moves": {
+     "old": 193,
+     "new": 193,
+     "delta": 0
+    },
+    "trim_count": {
+     "old": 6,
+     "new": 82,
+     "delta": 76
+    },
+    "color_count": {
+     "old": 1,
+     "new": 1,
+     "delta": 0
+    },
+    "center_crossing_travel": {
+     "old": 25,
+     "new": 0,
+     "delta": -25
+    },
+    "short_stitch_count": {
+     "old": 16,
+     "new": 8,
+     "delta": -8
+    },
+    "estimated_minutes": {
+     "old": 9.66,
+     "new": 17.25,
+     "delta": 7.59
+    },
+    "travel_mm": {
+     "old": 1297.7,
+     "new": 1297.7,
+     "delta": 0.0
+    },
+    "bbox_mm": {
+     "old": [
+      2.91,
+      2.9,
+      97.1,
+      97.1
+     ],
+     "new": [
+      2.91,
+      2.9,
+      97.1,
+      97.1
+     ],
+     "delta": null
+    }
+   },
+   "improved": [
+    "center_crossing_travel",
+    "short_stitch_count"
+   ],
+   "worse": [
+    "trim_count"
+   ],
+   "note": "metrics are measured from the two StitchPlans; fewer is not automatically better (see trims vs thread dragged)"
+  }
+ }
+}

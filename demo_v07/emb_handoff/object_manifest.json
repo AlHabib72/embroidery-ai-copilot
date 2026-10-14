@@ -1,0 +1,735 @@
+{
+ "objects": [
+  {
+   "sequence": 1,
+   "object_id": "outer_border",
+   "name": "Outer Border",
+   "semantic_type": "border",
+   "stitch_type": "satin",
+   "width_mm": 3.5,
+   "density_mm": 0.4,
+   "underlay": "zigzag",
+   "pull_compensation_mm": 0.2,
+   "angle_deg": 90.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    3.0,
+    3.0,
+    97.0,
+    97.0
+   ],
+   "holes": 1,
+   "entry_mm": [
+    96.6,
+    50.0
+   ],
+   "exit_mm": [
+    97.1,
+    50.0
+   ],
+   "stitches": 1996
+  },
+  {
+   "sequence": 2,
+   "object_id": "text_012_N",
+   "name": "Letter N",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 6.67,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    76.7,
+    20.28,
+    83.42,
+    26.95
+   ],
+   "holes": 0,
+   "entry_mm": [
+    82.5,
+    23.58
+   ],
+   "exit_mm": [
+    79.75,
+    26.87
+   ],
+   "stitches": 73
+  },
+  {
+   "sequence": 3,
+   "object_id": "text_011_O",
+   "name": "Letter O",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 5.35,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    72.31,
+    16.09,
+    77.66,
+    21.45
+   ],
+   "holes": 1,
+   "entry_mm": [
+    76.92,
+    19.25
+   ],
+   "exit_mm": [
+    73.66,
+    21.0
+   ],
+   "stitches": 54
+  },
+  {
+   "sequence": 4,
+   "object_id": "text_010_T",
+   "name": "Letter T",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 5.02,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    67.85,
+    11.85,
+    72.88,
+    17.65
+   ],
+   "holes": 0,
+   "entry_mm": [
+    70.83,
+    13.58
+   ],
+   "exit_mm": [
+    68.99,
+    17.62
+   ],
+   "stitches": 38
+  },
+  {
+   "sequence": 5,
+   "object_id": "text_009_T",
+   "name": "Letter T",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 4.65,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    62.59,
+    9.45,
+    67.24,
+    15.17
+   ],
+   "holes": 0,
+   "entry_mm": [
+    65.25,
+    10.92
+   ],
+   "exit_mm": [
+    62.83,
+    14.41
+   ],
+   "stitches": 41
+  },
+  {
+   "sequence": 6,
+   "object_id": "text_008_I",
+   "name": "Letter I",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 2.46,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    58.48,
+    8.62,
+    60.94,
+    13.78
+   ],
+   "holes": 0,
+   "entry_mm": [
+    60.17,
+    9.33
+   ],
+   "exit_mm": [
+    59.19,
+    13.64
+   ],
+   "stitches": 31
+  },
+  {
+   "sequence": 7,
+   "object_id": "text_007_U",
+   "name": "Letter U",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 4.65,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    52.39,
+    7.54,
+    57.05,
+    12.87
+   ],
+   "holes": 0,
+   "entry_mm": [
+    56.42,
+    8.5
+   ],
+   "exit_mm": [
+    52.43,
+    11.39
+   ],
+   "stitches": 57
+  },
+  {
+   "sequence": 8,
+   "object_id": "text_006_V",
+   "name": "Letter V",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 5.17,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    45.23,
+    7.42,
+    50.46,
+    12.59
+   ],
+   "holes": 0,
+   "entry_mm": [
+    48.58,
+    11.33
+   ],
+   "exit_mm": [
+    47.24,
+    12.36
+   ],
+   "stitches": 49
+  },
+  {
+   "sequence": 9,
+   "object_id": "text_005_S",
+   "name": "Letter S",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 4.54,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    36.14,
+    9.0,
+    40.68,
+    14.43
+   ],
+   "holes": 0,
+   "entry_mm": [
+    38.5,
+    11.67
+   ],
+   "exit_mm": [
+    37.52,
+    14.43
+   ],
+   "stitches": 56
+  },
+  {
+   "sequence": 10,
+   "object_id": "text_004_I",
+   "name": "Letter I",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 3.2,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 66.22901851867334,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    32.28,
+    10.85,
+    35.47,
+    15.94
+   ],
+   "holes": 0,
+   "entry_mm": [
+    33.08,
+    11.58
+   ],
+   "exit_mm": [
+    34.5,
+    15.85
+   ],
+   "stitches": 14
+  },
+  {
+   "sequence": 11,
+   "object_id": "text_003_U",
+   "name": "Letter U",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 5.65,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    26.14,
+    12.53,
+    31.79,
+    18.44
+   ],
+   "holes": 0,
+   "entry_mm": [
+    27.0,
+    14.92
+   ],
+   "exit_mm": [
+    27.25,
+    16.6
+   ],
+   "stitches": 45
+  },
+  {
+   "sequence": 12,
+   "object_id": "text_002_O",
+   "name": "Letter O",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 5.36,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    21.01,
+    17.19,
+    26.37,
+    22.55
+   ],
+   "holes": 1,
+   "entry_mm": [
+    21.67,
+    20.17
+   ],
+   "exit_mm": [
+    22.41,
+    22.15
+   ],
+   "stitches": 52
+  },
+  {
+   "sequence": 13,
+   "object_id": "text_001_L",
+   "name": "Letter L",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 4.21,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    16.55,
+    22.75,
+    22.66,
+    26.97
+   ],
+   "holes": 0,
+   "entry_mm": [
+    17.42,
+    23.67
+   ],
+   "exit_mm": [
+    18.19,
+    25.13
+   ],
+   "stitches": 28
+  },
+  {
+   "sequence": 14,
+   "object_id": "text_013_P",
+   "name": "Letter P",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 4.94,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    26.31,
+    81.06,
+    31.84,
+    86.0
+   ],
+   "holes": 1,
+   "entry_mm": [
+    31.25,
+    83.58
+   ],
+   "exit_mm": [
+    26.65,
+    85.54
+   ],
+   "stitches": 48
+  },
+  {
+   "sequence": 15,
+   "object_id": "text_014_A",
+   "name": "Letter A",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 5.14,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    30.25,
+    83.91,
+    35.38,
+    89.86
+   ],
+   "holes": 1,
+   "entry_mm": [
+    34.58,
+    87.67
+   ],
+   "exit_mm": [
+    30.4,
+    87.57
+   ],
+   "stitches": 57
+  },
+  {
+   "sequence": 16,
+   "object_id": "text_015_R",
+   "name": "Letter R",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 4.79,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    36.43,
+    85.52,
+    41.22,
+    91.56
+   ],
+   "holes": 1,
+   "entry_mm": [
+    39.75,
+    89.58
+   ],
+   "exit_mm": [
+    37.24,
+    90.55
+   ],
+   "stitches": 56
+  },
+  {
+   "sequence": 17,
+   "object_id": "text_016_I",
+   "name": "Letter I",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 2.1,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    42.32,
+    86.87,
+    44.42,
+    92.02
+   ],
+   "holes": 0,
+   "entry_mm": [
+    43.75,
+    87.5
+   ],
+   "exit_mm": [
+    42.85,
+    91.89
+   ],
+   "stitches": 31
+  },
+  {
+   "sequence": 18,
+   "object_id": "text_017_S",
+   "name": "Letter S",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 3.97,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    45.56,
+    87.33,
+    49.53,
+    92.53
+   ],
+   "holes": 0,
+   "entry_mm": [
+    48.0,
+    90.0
+   ],
+   "exit_mm": [
+    46.47,
+    92.36
+   ],
+   "stitches": 46
+  },
+  {
+   "sequence": 19,
+   "object_id": "text_018_1",
+   "name": "Letter 1",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 4.19,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 65.8223995025189,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    53.99,
+    86.97,
+    58.19,
+    92.27
+   ],
+   "holes": 0,
+   "entry_mm": [
+    56.33,
+    90.92
+   ],
+   "exit_mm": [
+    54.64,
+    91.38
+   ],
+   "stitches": 36
+  },
+  {
+   "sequence": 20,
+   "object_id": "text_019_8",
+   "name": "Letter 8",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 4.46,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    58.85,
+    85.81,
+    63.3,
+    91.09
+   ],
+   "holes": 2,
+   "entry_mm": [
+    59.42,
+    87.25
+   ],
+   "exit_mm": [
+    60.77,
+    91.08
+   ],
+   "stitches": 49
+  },
+  {
+   "sequence": 21,
+   "object_id": "text_020_5",
+   "name": "Letter 5",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 4.78,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    63.46,
+    83.76,
+    68.23,
+    89.49
+   ],
+   "holes": 0,
+   "entry_mm": [
+    66.5,
+    86.25
+   ],
+   "exit_mm": [
+    65.06,
+    89.22
+   ],
+   "stitches": 52
+  },
+  {
+   "sequence": 22,
+   "object_id": "text_021_4",
+   "name": "Letter 4",
+   "semantic_type": "text",
+   "stitch_type": "tatami",
+   "width_mm": 4.12,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    69.1,
+    81.43,
+    73.23,
+    86.7
+   ],
+   "holes": 1,
+   "entry_mm": [
+    71.67,
+    84.5
+   ],
+   "exit_mm": [
+    69.25,
+    86.0
+   ],
+   "stitches": 42
+  },
+  {
+   "sequence": 23,
+   "object_id": "inner_ring",
+   "name": "Inner Ring",
+   "semantic_type": "border",
+   "stitch_type": "satin",
+   "width_mm": 2.0,
+   "density_mm": 0.4,
+   "underlay": "center_run",
+   "pull_compensation_mm": 0.2,
+   "angle_deg": 90.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    16.53,
+    16.51,
+    83.5,
+    83.49
+   ],
+   "holes": 1,
+   "entry_mm": [
+    82.5,
+    50.0
+   ],
+   "exit_mm": [
+    83.6,
+    50.0
+   ],
+   "stitches": 1125
+  },
+  {
+   "sequence": 24,
+   "object_id": "mono_V_024",
+   "name": "Monogram V",
+   "semantic_type": "badge",
+   "stitch_type": "tatami",
+   "width_mm": 29.92,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 45.0,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    47.39,
+    35.04,
+    78.76,
+    64.96
+   ],
+   "holes": 0,
+   "entry_mm": [
+    48.25,
+    35.58
+   ],
+   "exit_mm": [
+    58.73,
+    64.96
+   ],
+   "stitches": 615
+  },
+  {
+   "sequence": 25,
+   "object_id": "mono_L_023",
+   "name": "Monogram L",
+   "semantic_type": "badge",
+   "stitch_type": "tatami",
+   "width_mm": 21.27,
+   "density_mm": 0.42,
+   "underlay": "tatami",
+   "pull_compensation_mm": 0.0,
+   "angle_deg": 66.51178596340469,
+   "thread_color_hex": "#141414",
+   "bbox_mm": [
+    24.81,
+    35.04,
+    46.07,
+    64.96
+   ],
+   "holes": 0,
+   "entry_mm": [
+    25.42,
+    35.58
+   ],
+   "exit_mm": [
+    24.81,
+    64.53
+   ],
+   "stitches": 448
+  }
+ ],
+ "fabric": "woven",
+ "canvas_mm": [
+  100.0,
+  100.0
+ ],
+ "note": "parameters are this tool's engine values (heuristic); re-check them in Wilcom for your fabric/machine"
+}

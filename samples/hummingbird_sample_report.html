@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HUMMINGBIRD — DST QC analysis</title>
+<style>
+:root{
+  --bg:#13121c; --panel:#1b192a; --panel2:#211e33; --line:#302c47;
+  --ink:#e8e5f7; --muted:#8e88ad; --accent:#7c5cff;
+  --ok:#5ccfa0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.55 "Inter","Segoe UI",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+header{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;
+  justify-content:space-between;margin-bottom:14px}
+h1{font-size:26px;font-weight:650;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:13px;margin:0}
+.score{display:flex;align-items:center;gap:14px;background:var(--panel);
+  border:1px solid var(--line);border-radius:14px;padding:12px 18px}
+.sring{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;
+  font-weight:700;font-size:17px;
+  background:conic-gradient(var(--accent) calc(44*1%),#2a2740 0)}
+.sring i{width:42px;height:42px;border-radius:50%;background:var(--panel);
+  display:grid;place-items:center;font-style:normal}
+.grade{font-size:13px;color:var(--muted)}
+.grade b{display:block;color:var(--ink);font-size:15px;font-weight:600}
+.disclaimer{font-size:12px;color:var(--muted);background:var(--panel2);
+  border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:18px}
+
+.sevrow{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:14px}
+.sevcard{background:var(--panel);padding:12px 14px;display:flex;flex-direction:column;
+  gap:2px;border-top:3px solid var(--c)}
+.sevn{font-size:22px;font-weight:700;color:var(--c)}
+.sevl{font-size:12px;color:var(--muted)}
+
+.metrics{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:14px;overflow:hidden;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:22px}
+.metric{background:var(--panel);padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.mlabel{font-size:12px;color:var(--muted)}
+.mvalue{font-size:21px;font-weight:650;font-variant-numeric:tabular-nums;
+  letter-spacing:-.01em}
+.mnote{font-size:11.5px;color:var(--muted)}
+
+.cols{display:grid;gap:18px;grid-template-columns:1.25fr .95fr;align-items:start}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:16px 18px}
+.panel h2{font-size:14px;font-weight:600;margin:0 0 12px;color:var(--muted)}
+.preview{background:var(--panel2);border-radius:10px;padding:8px;overflow:auto}
+.jump path{stroke:#ff5c72;stroke-width:.6;stroke-dasharray:2 3;fill:none;opacity:.75}
+.hl{fill:none;stroke:#7c5cff;stroke-width:1.4;stroke-dasharray:3 2}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--muted);margin-top:10px}
+.legend s{display:inline-block;width:16px;height:2px;background:#ff5c72;
+  vertical-align:middle;margin-right:6px;text-decoration:none}
+.legend em{display:inline-block;width:12px;height:12px;border:1.4px dashed #7c5cff;
+  border-radius:2px;vertical-align:-2px;margin-right:6px;font-style:normal}
+.zoomrow{display:flex;gap:6px;margin-bottom:8px}
+.zoomrow button{background:var(--panel2);border:1px solid var(--line);color:var(--ink);
+  border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer}
+.zoomrow button:hover{border-color:var(--accent)}
+
+ul.issues{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.issue{border:1px solid var(--line);border-left:3px solid var(--sev,var(--ok));
+  border-radius:10px;padding:12px 14px;background:var(--panel2)}
+.ihead{display:flex;align-items:center;gap:9px;margin-bottom:5px}
+.issue h3{font-size:14.5px;font-weight:600;margin:0}
+.ibadge{font-size:10.5px;font-weight:600;color:var(--sev);
+  border:1px solid var(--sev);border-radius:20px;padding:1px 8px}
+.issue p{margin:6px 0 0;font-size:13px;color:#b9b4d4}
+.issue p:first-of-type{margin-top:0}
+.issue .why,.issue .rec{color:#a49fc4}
+.isave{color:var(--ok)!important;font-weight:550}
+.loc{font-family:ui-monospace,monospace;font-size:11.5px!important;color:#8e88ad!important}
+.clean{--sev:var(--ok)}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-weight:500;color:var(--muted);font-size:12px;
+  padding:0 0 8px}
+td{padding:7px 0;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.num{text-align:right}
+.chip{display:inline-block;width:11px;height:11px;border-radius:3px;
+  margin-right:9px;vertical-align:-1px;border:1px solid rgba(255,255,255,.18)}
+
+.bars{margin-top:6px}
+.bar{margin-bottom:12px}
+.bar span{display:flex;justify-content:space-between;font-size:12.5px;
+  color:var(--muted);margin-bottom:5px}
+.bar span b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.track{height:7px;border-radius:4px;background:#2a2740;overflow:hidden}
+.fill{height:100%;border-radius:4px}
+.note{font-size:12.5px;color:var(--muted);margin:14px 0 0}
+footer{margin-top:28px;font-size:12px;color:var(--muted)}
+</style></head><body><div class="wrap">
+
+<header>
+  <div>
+    <h1>HUMMINGBIRD</h1>
+    <p class="sub">samples/hummingbird_sample.dst · hoop area -54.0,-44.5 to 51.2,42.5 mm
+      · fabric preset: woven</p>
+  </div>
+  <div class="score">
+    <div class="sring"><i>44</i></div>
+    <div class="grade">QC Heuristic Score<b>Rework</b></div>
+  </div>
+</header>
+
+<p class="disclaimer">This score is a software heuristic based on rule
+violations detected in the stitch data. It is not a certification of
+stitch-out quality, and every figure on this page is an estimate derived
+from geometry — not a measurement taken from a real machine, thread spool,
+or fabric. "Reconstructed segments" approximate objects; DST does not store
+Wilcom's native object boundaries. Analyzer v0.2.0.</p>
+
+<div class="sevrow"><div class="sevcard" style="--c:#ff5c72"><span class="sevn">4</span><span class="sevl">Critical</span></div><div class="sevcard" style="--c:#ff9f45"><span class="sevn">0</span><span class="sevl">High</span></div><div class="sevcard" style="--c:#ffd45c"><span class="sevn">0</span><span class="sevl">Medium</span></div><div class="sevcard" style="--c:#5ccfa0"><span class="sevn">0</span><span class="sevl">Low</span></div></div>
+
+<div class="metrics"><div class="metric"><span class="mlabel">Reconstructed segments</span><span class="mvalue">12</span><span class="mnote">inferred, not native Wilcom object count</span></div><div class="metric"><span class="mlabel">Stitches</span><span class="mvalue">1,123</span><span class="mnote">3.74 mm average</span></div><div class="metric"><span class="mlabel">Colours</span><span class="mvalue">3</span><span class="mnote">2 changes</span></div><div class="metric"><span class="mlabel">Estimated trims</span><span class="mvalue">11</span><span class="mnote">theoretical minimum ~9</span></div><div class="metric"><span class="mlabel">Jumps</span><span class="mvalue">62</span><span class="mnote">~767 mm estimated travel</span></div><div class="metric"><span class="mlabel">Estimated run time</span><span class="mvalue">1.8 min</span><span class="mnote">at 1000 spm</span></div><div class="metric"><span class="mlabel">Estimated thread</span><span class="mvalue">4.8 m</span><span class="mnote">~2.0 m bobbin</span></div><div class="metric"><span class="mlabel">Size</span><span class="mvalue">105.2 × 87.0</span><span class="mnote">mm</span></div></div>
+
+<div class="cols">
+  <section class="panel">
+    <h2>Stitch path</h2>
+    <div class="preview"><svg viewBox="0 0 620 514" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Stitch path preview"><g class="stitches" fill="none" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path d="M301.9,321.6 L301.9,358.0 L316.9,342.4 L332.5,327.3 L347.6,311.7 L363.2,296.7 L378.2,281.1 L393.8,266.1 L408.8,250.5 L424.4,235.4 L422.7,233.7 L407.7,248.7 L392.1,264.3 L376.5,279.4 L361.4,295.0 L345.8,310.0 L330.8,325.6 L315.2,341.2 L300.2,356.2 L298.4,354.5 L314.0,339.5 L329.1,323.9 L344.7,308.8 L359.7,293.2 L375.3,278.2 L390.3,262.6 L405.9,247.6 L421.0,232.0 L419.2,230.2 L404.2,245.8 L388.6,260.9 L373.6,276.5 L358.0,291.5 L342.9,307.1 L327.3,322.1 L312.3,337.7 L296.7,352.8 L295.0,351.6 L310.6,336.0 L325.6,321.0 L341.2,305.4 L356.2,289.8 L371.8,274.7 L387.4,259.1 L402.5,244.1 L418.1,228.5 L416.3,227.4 L400.7,242.4 L385.7,258.0 L370.1,273.0 L355.1,288.6 L339.5,303.6 L324.4,319.2 L308.8,334.3 L293.8,349.9 L292.1,348.1 L307.1,332.5 L322.7,317.5 L337.7,301.9 L353.3,286.9 L368.4,271.3 L384.0,256.3 L399.0,240.6 L414.6,225.6 L412.9,223.9 L397.8,238.9 L382.2,254.5 L366.6,269.5 L351.6,285.1 L336.0,300.2 L321.0,315.8 L305.4,331.4 L290.3,346.4 L288.6,344.7 L304.2,329.7 L319.2,314.0 L334.9,299.0 L349.9,283.4 L365.5,268.4 L380.5,252.8 L396.1,237.8 L411.1,222.2 L409.4,220.4 L394.4,236.0 L378.8,251.0 L363.7,266.7 L348.1,281.7 L333.1,297.3 L317.5,312.3 L302.5,327.9 L286.9,342.9 L285.1,341.8 L300.8,326.2 L315.8,311.2 L331.4,295.6 L346.4,279.9 L362.0,264.9 L377.6,249.3 L392.6,234.3 L408.3,218.7 L406.5,217.5 L390.9,232.6 L375.9,248.2 L360.3,263.2 L345.3,278.8 L329.7,293.8 L314.6,309.4 L299.0,324.4 L284.0,340.1 L282.3,338.3 L297.3,322.7 L312.9,307.7 L327.9,292.1 L343.5,277.1 L358.5,261.5 L374.2,246.4 L389.2,230.8 L404.8,215.8 L403.0,214.1 L388.0,229.1 L372.4,244.7 L357.4,259.7 L341.8,275.3 L326.2,290.9 L311.2,306.0 L295.6,321.6 L280.5,336.6 L278.8,334.9 L294.4,319.8 L309.4,304.2 L325.0,289.2 L340.1,273.6 L355.7,258.6 L370.7,243.0 L386.3,227.9 L401.3,212.3 L399.6,210.6 L384.6,226.2 L369.0,241.2 L353.9,256.8 L338.3,271.9 L323.3,287.5 L307.7,302.5 L292.7,318.1 L277.1,333.1 L275.3,332.0 L290.9,316.4 L306.0,301.3 L321.6,285.7 L337.2,270.7 L352.2,255.1 L367.8,239.5 L382.8,224.5 L398.4,208.9 L396.7,207.7 L381.1,222.7 L366.1,238.3 L350.5,253.4 L335.4,269.0 L319.8,284.0 L304.8,299.6 L289.2,314.6 L274.2,330.2 L272.4,328.5 L287.5,312.9 L303.1,297.9 L318.1,282.3 L333.7,267.2 L348.7,251.6 L364.3,236.6 L379.4,221.0 L395.0,206.0 L393.2,204.2 L378.2,219.3 L362.6,234.9 L347.6,250.5 L332.0,265.5 L316.9,281.1 L301.3,296.1 L285.7,311.7 L270.7,326.8 L269.0,325.0 L284.6,310.0 L299.6,294.4 L315.2,279.4 L330.2,263.8 L345.8,248.7 L360.9,233.1 L376.5,218.1 L391.5,202.5 L389.8,200.8 L374.7,216.4 L359.1,231.4 L344.1,247.0 L328.5,262.0 L313.5,277.6 L297.9,292.7 L282.8,308.3 L267.2,323.3 L265.5,322.1 L281.1,306.5 L296.7,291.5 L311.7,275.9 L327.3,260.9 L342.4,245.3 L358.0,230.2 L373.0,214.6 L388.6,199.0 L386.9,197.9 L371.3,212.9 L356.2,228.5 L340.6,243.5 L325.6,259.1 L310.0,274.2 L295.0,289.8 L279.4,304.8 L264.3,320.4 L262.6,318.7 L277.6,303.1 L293.2,288.0 L308.3,272.4 L323.9,257.4 L338.9,241.8 L354.5,226.8 L369.5,211.2 L385.1,196.1 L383.4,194.4 L368.4,210.0 L352.8,225.0 L337.7,240.6 L322.1,255.7 L307.1,271.3 L291.5,286.3 L276.5,301.9 L260.9,316.9 L259.1,315.2 L274.7,300.2 L289.8,284.6 L305.4,269.5 L320.4,253.9 L336.0,238.9 L351.0,223.3 L366.6,208.3 L381.7,192.7 L379.9,190.9 L364.9,206.5 L349.3,221.6 L334.3,237.2 L318.7,252.2 L303.6,267.8 L288.0,282.8 L273.0,298.4 L257.4,313.5 L256.3,312.3 L271.3,296.7 L286.9,281.7 L301.9,266.1 L317.5,251.0 L332.5,235.4 L348.1,220.4 L363.2,204.8 L378.8,189.8 L377.0,188.1 L361.4,203.1 L346.4,218.7 L330.8,233.7 L315.8,249.3 L300.2,264.3 L285.1,279.9 L269.5,295.0 L254.5,310.6 L252.8,308.8 L267.8,293.2 L283.4,278.2 L298.4,262.6 L314.0,247.6 L329.1,232.0 L344.7,217.0 L359.7,201.3 L375.3,186.3 L373.6,184.6 L358.5,200.2 L342.9,215.2 L327.9,230.8 L312.3,245.8 L297.3,261.5 L281.7,276.5 L266.7,292.1 L251.0,307.1 L249.3,305.4 L264.9,290.3 L279.9,274.7 L295.6,259.7 L310.6,244.1 L326.2,229.1 L341.2,213.5 L356.8,198.5 L371.8,182.9 L370.7,181.1 L355.1,196.7 L339.5,211.7 L324.4,227.4 L308.8,242.4 L293.8,258.0 L278.2,273.0 L263.2,288.6 L247.6,304.2 L246.4,302.5 L261.5,286.9 L277.1,271.9 L292.1,256.3 L307.7,241.2 L322.7,225.6 L338.3,210.6 L353.3,195.0 L369.0,180.0 L367.2,178.2 L351.6,193.3 L336.6,208.9 L321.0,223.9 L306.0,239.5 L290.3,254.5 L275.3,270.1 L259.7,285.1 L244.7,300.8 L243.0,299.0 L258.0,284.0 L273.6,268.4 L288.6,252.8 L304.2,237.8 L319.2,222.2 L334.9,207.1 L350.5,191.5 L365.5,176.5 L363.7,174.8 L348.7,190.4 L333.1,205.4 L318.1,221.0 L302.5,236.0 L287.5,251.6 L271.9,266.7 L256.8,282.3 L241.2,297.3 L239.5,295.6 L255.1,280.5 L270.1,264.9 L285.7,249.9 L300.8,234.3 L316.4,219.3 L331.4,203.7 L347.0,188.6 L362.0,173.0 L360.9,171.3 L345.3,186.9 L330.2,201.9 L314.6,217.5 L299.0,232.6 L284.0,248.2 L268.4,263.8 L253.4,278.8 L237.8,294.4 L236.6,292.7 L251.6,277.1 L267.2,262.0 L282.3,246.4 L297.9,231.4 L312.9,215.8 L328.5,200.8 L343.5,185.2 L359.1,170.1 L357.4,168.4 L341.8,183.4 L326.8,199.0 L311.2,214.1 L296.1,229.7 L280.5,244.7 L265.5,260.3 L249.9,275.3 L234.9,290.9 L233.1,289.2 L248.2,274.2 L263.8,258.6 L278.8,243.5 L294.4,227.9 L310.0,212.3 L325.0,197.3 L340.6,181.7 L355.7,166.7 L353.9,164.9 L338.9,180.5 L323.3,195.6 L308.3,211.2 L292.7,226.2 L277.6,241.8 L262.0,256.8 L247.0,272.4 L231.4,287.5 L229.7,285.7 L245.3,270.7 L260.3,255.1 L275.9,240.1 L290.9,224.5 L306.5,209.4 L321.6,193.8 L337.2,178.8 L352.2,163.2 L351.0,161.5 L335.4,177.1 L320.4,192.1 L304.8,207.7 L289.8,223.3 L274.2,238.3 L258.6,253.9 L243.5,269.0 L227.9,284.6 L226.8,282.8 L241.8,267.2 L257.4,252.2 L272.4,236.6 L288.0,221.6 L303.1,206.0 L318.7,190.9 L333.7,175.3 L349.3,160.3 L347.6,158.6 L332.0,173.6 L316.9,189.2 L301.3,204.2 L286.3,219.8 L270.7,234.9 L255.7,250.5 L240.1,265.5 L225.0,281.1 L223.3,279.4 L238.3,264.3 L253.9,248.7 L269.5,233.7 L284.6,218.1 L300.2,203.1 L315.2,187.5 L330.8,171.9 L345.8,156.8 L344.1,155.1 L329.1,170.7 L313.5,185.7 L298.4,201.3 L282.8,216.4 L267.8,232.0 L252.2,247.0 L237.2,262.6 L221.6,277.6 L219.8,275.9 L235.4,260.9 L250.5,245.3 L266.1,230.2 L281.1,214.6 L296.7,199.6 L311.7,184.0 L327.3,169.0 L342.4,153.4 L341.2,151.6 L325.6,167.2 L310.6,182.3 L295.0,197.9 L279.9,213.5 L264.3,228.5 L248.7,244.1 L233.7,259.1 L218.1,274.7 L217.0,273.0 L232.0,257.4 L247.6,242.4 L262.6,226.8 L278.2,211.7 L293.2,196.1 L308.8,181.1 L323.9,165.5 L339.5,150.5 L337.7,148.8 L322.1,163.8 L307.1,179.4 L291.5,194.4 L276.5,210.0 L260.9,225.0 L245.8,240.6 L230.2,255.7 L215.2,271.3 L213.5,269.5 L228.5,254.5 L244.1,238.9 L259.7,223.9 L274.7,208.3 L290.3,193.3 L305.4,177.7 L321.0,162.0 L336.0,147.0" stroke="#e8dcc4"/><path d="M542.3,111.2 L568.9,123.3 L544.6,107.1 L571.2,119.3 L547.5,103.1 L573.5,115.2 L549.8,98.5 L575.9,111.2 L552.2,94.4 L578.2,107.1 L554.5,90.4 L580.5,103.1 L556.8,86.3 L582.8,99.0 L559.1,82.3 L585.1,94.4 L561.4,78.2 L588.0,90.4 L563.7,74.2 L590.3,86.3 L566.0,70.2 L592.6,82.3 L568.3,66.1 L594.9,78.2 L571.2,62.1 L597.2,74.2 L573.5,57.4 L599.6,70.2 L575.9,53.4 L601.9,66.1 L578.2,49.3 L604.2,62.1 L580.5,45.3 L606.5,58.0 L582.8,41.3 L608.8,53.4 L585.1,37.2 L611.7,49.3 L587.4,33.2 L614.0,45.3" stroke="#e8dcc4"/><path d="M39.5,100.2 L56.3,124.5 L43.6,97.9 L60.3,121.6 L47.6,95.6 L64.4,119.3 L52.2,93.3 L68.4,117.0 L56.3,91.0 L72.5,114.7 L60.3,88.6 L76.5,112.3 L64.4,86.3 L80.6,110.0 L68.4,84.0 L85.2,107.7 L72.5,81.7 L89.2,105.4 L76.5,78.8 L93.3,103.1 L80.6,76.5 L97.3,100.8 L84.6,74.2 L101.4,97.9 L88.6,71.9 L105.4,95.6 L93.3,69.6 L109.5,93.3 L97.3,67.3 L113.5,91.0 L101.4,65.0 L117.5,88.6 L105.4,62.6 L121.6,86.3 L109.5,60.3 L126.2,84.0 L113.5,58.0 L130.3,81.7 L117.5,55.1 L134.3,79.4" stroke="#e8dcc4"/><path d="M581.1,442.3 L610.0,440.0 L581.1,437.7 L610.0,435.4 L581.1,433.1 L610.0,430.2 L581.1,427.9 L610.0,425.6 L581.1,423.3 L610.0,421.0 L581.1,418.7 L610.0,416.3 L581.1,414.0 L610.0,411.7 L581.1,409.4 L610.0,406.5 L581.1,404.2 L610.0,401.9 L581.1,399.6 L610.0,397.3 L581.1,395.0 L610.0,392.6 L581.1,390.3 L610.0,388.0 L581.1,385.7 L610.0,382.8 L581.1,380.5 L610.0,378.2 L581.1,375.9 L610.0,373.6 L581.1,371.3 L610.0,369.0 L581.1,366.6 L610.0,364.3 L581.1,362.0 L610.0,359.1 L581.1,356.8 L610.0,354.5 L581.1,352.2 L610.0,349.9" stroke="#e8dcc4"/><path d="M6.0,410.6 L8.3,439.5 L10.6,410.6 L12.9,439.5 L15.2,410.6 L18.1,439.5 L20.4,410.6 L22.8,439.5 L25.1,410.6 L27.4,439.5 L29.7,410.6 L32.0,439.5 L34.3,410.6 L36.6,439.5 L38.9,410.6 L41.8,439.5 L44.1,410.6 L46.5,439.5 L48.8,410.6 L51.1,439.5 L53.4,410.6 L55.7,439.5 L58.0,410.6 L60.3,439.5 L62.6,410.6 L65.5,439.5 L67.8,410.6 L70.2,439.5 L72.5,410.6 L74.8,439.5 L77.1,410.6 L79.4,439.5 L81.7,410.6 L84.0,439.5 L86.3,410.6 L89.2,439.5 L91.5,410.6 L93.8,439.5 L96.2,410.6 L98.5,439.5" stroke="#e8dcc4"/><path d="M300.8,6.0 L303.1,34.9 L305.4,6.0 L307.7,34.9 L310.0,6.0 L312.9,34.9 L315.2,6.0 L317.5,34.9 L319.8,6.0 L322.1,34.9 L324.4,6.0 L326.8,34.9 L329.1,6.0 L331.4,34.9 L333.7,6.0 L336.6,34.9 L338.9,6.0 L341.2,34.9 L343.5,6.0 L345.8,34.9 L348.1,6.0 L350.5,34.9 L352.8,6.0 L355.1,34.9 L357.4,6.0 L360.3,34.9 L362.6,6.0 L364.9,34.9 L367.2,6.0 L369.5,34.9 L371.8,6.0 L374.2,34.9 L376.5,6.0 L378.8,34.9 L381.1,6.0 L384.0,34.9 L386.3,6.0 L388.6,34.9 L390.9,6.0 L393.2,34.9" stroke="#e8dcc4"/><path d="M283.4,479.9 L285.7,508.8 L288.0,479.9 L290.3,508.8 L292.7,479.9 L295.6,508.8 L297.9,479.9 L300.2,508.8 L302.5,479.9 L304.8,508.8 L307.1,479.9 L309.4,508.8 L311.7,479.9 L314.0,508.8 L316.4,479.9 L319.2,508.8 L321.6,479.9 L323.9,508.8 L326.2,479.9 L328.5,508.8 L330.8,479.9 L333.1,508.8 L335.4,479.9 L337.7,508.8 L340.1,479.9 L342.9,508.8 L345.3,479.9 L347.6,508.8 L349.9,479.9 L352.2,508.8 L354.5,479.9 L356.8,508.8 L359.1,479.9 L361.4,508.8 L363.7,479.9 L366.6,508.8 L369.0,479.9 L371.3,508.8 L373.6,479.9 L375.9,508.8" stroke="#e8dcc4"/><path d="M364.9,147.6 L365.5,147.6 L370.7,159.7 L369.5,146.4 L375.3,158.6 L374.2,145.3 L379.9,156.8 L380.5,156.8 L378.8,144.1 L384.0,155.7 L383.4,143.0 L388.6,154.5 L388.0,141.8 L388.6,141.8 L393.2,153.4 L392.1,140.7 L397.8,152.2 L396.7,139.5 L402.5,151.1 L403.0,151.1 L401.3,138.3 L407.1,149.9 L405.9,136.6 L411.7,148.8 L410.6,135.5 L411.1,135.5 L415.8,147.6 L415.2,134.3 L420.4,145.9 L419.8,133.1 L425.0,144.7 L425.6,144.7 L423.9,132.0 L429.6,143.6 L428.5,130.8 L434.3,142.4 L433.1,129.7 L433.7,129.7 L438.9,141.2 L437.7,128.5 L443.5,140.1 L442.3,127.4 L447.6,138.9 L448.1,138.9 L447.0,126.2 L452.2,137.8 L451.6,124.5 L456.8,136.6 L455.6,123.3 L456.2,123.3 L461.4,135.5 L460.3,122.2 L466.0,133.7 L464.9,121.0 L470.7,132.6 L471.2,132.6 L469.5,119.9 L475.3,131.4 L474.1,118.7 L479.3,130.3 L478.8,117.5 L479.3,117.5 L484.0,129.1 L483.4,116.4 L488.6,127.9 L487.4,115.2 L493.2,126.8 L493.8,126.8 L492.1,113.5 L497.8,125.6 L496.7,112.3 L502.5,124.5" stroke="#9bb168"/><path d="M122.2,159.2 L122.7,159.2 L127.9,171.3 L126.8,158.0 L132.6,170.1 L131.4,156.8 L137.2,168.4 L137.8,168.4 L136.0,155.7 L141.2,167.2 L140.7,154.5 L145.9,166.1 L145.3,153.4 L145.9,153.4 L150.5,164.9 L149.3,152.2 L155.1,163.8 L154.0,151.1 L159.7,162.6 L160.3,162.6 L158.6,149.9 L164.4,161.5 L163.2,148.2 L169.0,160.3 L167.8,147.0 L168.4,147.0 L173.0,159.2 L172.4,145.9 L177.7,157.4 L177.1,144.7 L182.3,156.3 L182.9,156.3 L181.1,143.6 L186.9,155.1 L185.7,142.4 L191.5,154.0 L190.4,141.2 L190.9,141.2 L196.1,152.8 L195.0,140.1 L200.8,151.6 L199.6,138.9 L204.8,150.5 L205.4,150.5 L204.2,137.8 L209.4,149.3 L208.9,136.0 L214.1,148.2 L212.9,134.9 L213.5,134.9 L218.7,147.0 L217.5,133.7 L223.3,145.3 L222.2,132.6 L227.9,144.1 L228.5,144.1 L226.8,131.4 L232.6,143.0 L231.4,130.3 L236.6,141.8 L236.0,129.1 L236.6,129.1 L241.2,140.7 L240.6,127.9 L245.8,139.5 L244.7,126.8 L250.5,138.3 L251.0,138.3 L249.3,125.1 L255.1,137.2 L253.9,123.9 L259.7,136.0" stroke="#9bb168"/><path d="M388.0,367.2 L388.6,367.2 L393.8,379.4 L392.6,366.1 L398.4,378.2 L397.3,364.9 L403.0,376.5 L403.6,376.5 L401.9,363.7 L407.1,375.3 L406.5,362.6 L411.7,374.2 L411.1,361.4 L411.7,361.4 L416.3,373.0 L415.2,360.3 L421.0,371.8 L419.8,359.1 L425.6,370.7 L426.2,370.7 L424.4,358.0 L430.2,369.5 L429.1,356.2 L434.8,368.4 L433.7,355.1 L434.3,355.1 L438.9,367.2 L438.3,353.9 L443.5,365.5 L442.9,352.8 L448.1,364.3 L448.7,364.3 L447.0,351.6 L452.8,363.2 L451.6,350.5 L457.4,362.0 L456.2,349.3 L456.8,349.3 L462.0,360.9 L460.8,348.1 L466.6,359.7 L465.5,347.0 L470.7,358.5 L471.2,358.5 L470.1,345.8 L475.3,357.4 L474.7,344.1 L479.9,356.2 L478.8,342.9 L479.3,342.9 L484.5,355.1 L483.4,341.8 L489.2,353.3 L488.0,340.6 L493.8,352.2 L494.4,352.2 L492.6,339.5 L498.4,351.0 L497.3,338.3 L502.5,349.9 L501.9,337.2 L502.5,337.2 L507.1,348.7 L506.5,336.0 L511.7,347.6 L510.5,334.9 L516.3,346.4 L516.9,346.4 L515.2,333.1 L521.0,345.3 L519.8,332.0 L525.6,344.1" stroke="#9bb168"/><path d="M133.7,378.8 L134.3,378.8 L139.5,390.9 L138.3,377.6 L144.1,389.8 L143.0,376.5 L148.8,388.0 L149.3,388.0 L147.6,375.3 L152.8,386.9 L152.2,374.2 L157.4,385.7 L156.8,373.0 L157.4,373.0 L162.0,384.6 L160.9,371.8 L166.7,383.4 L165.5,370.7 L171.3,382.2 L171.9,382.2 L170.1,369.5 L175.9,381.1 L174.8,367.8 L180.5,379.9 L179.4,366.6 L180.0,366.6 L184.6,378.8 L184.0,365.5 L189.2,377.0 L188.6,364.3 L193.8,375.9 L194.4,375.9 L192.7,363.2 L198.5,374.7 L197.3,362.0 L203.1,373.6 L201.9,360.9 L202.5,360.9 L207.7,372.4 L206.5,359.7 L212.3,371.3 L211.2,358.5 L216.4,370.1 L217.0,370.1 L215.8,357.4 L221.0,369.0 L220.4,355.7 L225.6,367.8 L224.5,354.5 L225.0,354.5 L230.2,366.6 L229.1,353.3 L234.9,364.9 L233.7,352.2 L239.5,363.7 L240.1,363.7 L238.3,351.0 L244.1,362.6 L243.0,349.9 L248.2,361.4 L247.6,348.7 L248.2,348.7 L252.8,360.3 L252.2,347.6 L257.4,359.1 L256.3,346.4 L262.0,358.0 L262.6,358.0 L260.9,344.7 L266.7,356.8 L265.5,343.5 L271.3,355.7" stroke="#9bb168"/><path d="M260.3,211.2 L262.6,281.1 L262.6,292.1 L264.9,222.2 L264.9,211.2 L267.2,281.1 L267.2,292.1 L269.5,222.2 L269.5,211.2 L271.9,281.1 L271.9,292.1 L274.2,222.2 L274.2,211.2 L277.1,281.1 L277.1,292.1 L279.4,222.2 L279.4,211.2 L281.7,281.1 L281.7,292.1 L284.0,222.2 L284.0,211.2 L286.3,281.1 L286.3,292.1 L288.6,222.2 L288.6,211.2 L290.9,281.1 L290.9,292.1 L293.2,222.2 L293.2,211.2 L295.6,281.1 L295.6,292.1 L297.9,222.2 L297.9,211.2 L300.2,281.1 L300.2,292.1 L302.5,222.2 L302.5,211.2 L305.4,281.1 L305.4,292.1 L307.7,222.2 L307.7,211.2 L310.0,281.1 L310.0,292.1 L312.3,222.2 L312.3,211.2 L314.6,281.1 L314.6,292.1 L316.9,222.2 L316.9,211.2 L319.2,281.1 L319.2,292.1 L321.6,222.2 L321.6,211.2 L323.9,281.1 L323.9,292.1 L326.2,222.2 L326.2,211.2 L328.5,281.1 L328.5,292.1 L330.8,222.2 L330.8,211.2 L333.7,281.1 L333.7,292.1 L336.0,222.2 L336.0,211.2 L338.3,281.1 L338.3,292.1 L340.6,222.2 L340.6,211.2 L342.9,281.1 L342.9,292.1 L345.3,222.2 L345.3,211.2 L347.6,281.1 L347.6,292.1 L349.9,222.2 L349.9,211.2 L352.2,281.1 L352.2,292.1 L354.5,222.2 L354.5,211.2 L356.8,281.1 L356.8,292.1 L359.1,222.2 L359.1,211.2 L362.0,281.1 L362.0,292.1 L364.3,222.2 L364.3,211.2 L366.6,281.1 L366.6,292.1 L369.0,222.2 L369.0,211.2 L371.3,281.1 L371.3,292.1 L373.6,222.2 L373.6,211.2 L375.9,281.1 L375.9,292.1" stroke="#6f8f3e"/></g><g class="jump"><path d="M336.0,147.0L405.9,78.2 M405.9,78.2L475.9,78.2 M475.9,78.2L545.8,78.2 M545.8,78.2L578.2,78.2 M614.0,45.3L544.1,89.8 M544.1,89.8L474.1,89.8 M474.1,89.8L404.2,89.8 M404.2,89.8L334.3,89.8 M334.3,89.8L264.3,89.8 M264.3,89.8L194.4,89.8 M194.4,89.8L124.5,89.8 M124.5,89.8L86.9,89.8 M134.3,79.4L204.2,149.3 M204.2,149.3L274.2,219.3 M274.2,219.3L344.1,289.2 M344.1,289.2L414.0,359.1 M414.0,359.1L484.0,396.1 M484.0,396.1L553.9,396.1 M553.9,396.1L595.5,396.1 M610.0,349.9L540.0,419.8 M540.0,419.8L470.1,425.0 M470.1,425.0L400.2,425.0 M400.2,425.0L330.2,425.0 M330.2,425.0L260.3,425.0 M260.3,425.0L190.4,425.0 M190.4,425.0L120.4,425.0 M120.4,425.0L52.2,425.0 M98.5,439.5L168.4,369.5 M168.4,369.5L238.3,299.6 M238.3,299.6L308.3,229.7 M308.3,229.7L347.0,159.7 M347.0,159.7L347.0,89.8 M347.0,89.8L347.0,20.4 M393.2,34.9L329.7,104.8 M329.7,104.8L329.7,174.8 M329.7,174.8L329.7,244.7 M329.7,244.7L329.7,314.6 M329.7,314.6L329.7,384.6 M329.7,384.6L329.7,454.5 M329.7,454.5L329.7,494.4 M433.7,438.9L433.7,369.0 M433.7,369.0L433.7,299.0 M433.7,299.0L433.7,229.1 M433.7,229.1L433.7,159.2 M433.7,159.2L433.7,136.0 M502.5,124.5L432.5,147.6 M432.5,147.6L362.6,147.6 M362.6,147.6L292.7,147.6 M292.7,147.6L222.7,147.6 M222.7,147.6L190.9,147.6 M259.7,136.0L329.7,206.0 M329.7,206.0L399.6,275.9 M399.6,275.9L456.8,345.8 M456.8,345.8L456.8,355.7 M525.6,344.1L455.6,367.2 M455.6,367.2L385.7,367.2 M385.7,367.2L315.8,367.2 M315.8,367.2L245.8,367.2 M245.8,367.2L202.5,367.2 M318.1,285.7L318.1,251.6"/></g><rect class="hl" x="119.7" y="114.5" width="400.2" height="276.5" rx="3"/></svg></div>
+    <p class="legend"><span><s></s>jump / travel</span>
+       <span><em></em>most severe issue location</span>
+       <span>solid lines are needle penetrations, coloured by thread block</span></p>
+  </section>
+
+  <section class="panel">
+    <h2>What needs review (4)</h2>
+    <ul class="issues"><li class="issue" style="--sev:#ff5c72"><div class="ihead"><span class="ibadge">Critical</span><h3>Wasted travel between objects</h3></div><p>62 jump stitches cover an estimated 767 mm of travel. A theoretical nearest-neighbour ordering of the same segments covers roughly 317 mm. This is a preview calculation, not a rewritten file.</p><p class="why"><b>Why it matters:</b> Extra travel means more jump stitches, more places for the machine to trim, and a longer cycle time.</p><p class="rec"><b>Recommended review:</b> Re-sequence objects within each colour so nearby shapes are sewn back-to-back.</p><p class="isave">Recovers ~451 mm (59% estimated reduction)</p></li><li class="issue" style="--sev:#ff5c72"><div class="ihead"><span class="ibadge">Critical</span><h3>Stitches under 0.3 mm</h3></div><p>49 stitches are shorter than 0.3 mm — the needle penetrates almost the same spot as the previous stitch.</p><p class="why"><b>Why it matters:</b> Potential risk: a cluster of very short stitches can mean excessive needle penetrations in one spot, added thread stress, and — depending on fabric, thread and machine condition — a higher chance of thread breaks or fabric damage. This is a risk indicator, not a guarantee.</p><p class="rec"><b>Recommended review:</b> Inspect the affected area in the original digitizing file; consider stitch elimination or cleaning up outline nodes.</p><p class="loc">Location: x -33.8–34.4 mm, y -23.6–23.2 mm</p></li><li class="issue" style="--sev:#ff5c72"><div class="ihead"><span class="ibadge">Critical</span><h3>Long stitch — review required</h3></div><p>55 stitches exceed 10.0 mm (longest measured: 12.4 mm). This is above the configured 12.0 mm ceiling.</p><p class="why"><b>Why it matters:</b> A long stitch can be an unsplit satin column, an intentional long run, or a digitizing artefact — the stitch file alone doesn&#x27;t say which. Long floats generally snag more easily and can lose sheen.</p><p class="rec"><b>Recommended review:</b> Review the flagged area in the digitizing software and confirm the stitch type/length is intentional.</p><p class="loc">Location: x -33.9–12.1 mm, y -22.0–18.0 mm</p></li><li class="issue" style="--sev:#ff5c72"><div class="ihead"><span class="ibadge">Critical</span><h3>Estimated local thread-density proxy is very high</h3></div><p>14 mm² of the design carries an estimated thread-density proxy above 6.5 mm of thread per mm². This is a geometric proxy computed from stitch coordinates, not Wilcom&#x27;s own density figure.</p><p class="why"><b>Why it matters:</b> Potential risk: very high stitch density can lead to puckering, needle heat, or thread breakage depending on fabric, stabiliser and thread.</p><p class="rec"><b>Recommended review:</b> Check for stacked/overlapping objects or underlay that was not reduced where a top stitch covers it.</p><p class="loc">Location: x 1.0–2.0 mm, y -7.0–-6.0 mm</p></li></ul>
+  </section>
+</div>
+
+<div class="cols" style="margin-top:18px">
+  <section class="panel">
+    <h2>Colour sequence</h2>
+    <table><thead><tr><th>Block</th><th class="num">Stitches</th>
+      <th class="num">Segments</th><th class="num">Share</th></tr></thead>
+      <tbody><tr><td><span class="chip" style="background:#e8dcc4"></span>1</td><td class="num">736</td><td class="num">7</td><td class="num">65.5%</td></tr><tr><td><span class="chip" style="background:#9bb168"></span>2</td><td class="num">288</td><td class="num">4</td><td class="num">25.6%</td></tr><tr><td><span class="chip" style="background:#6f8f3e"></span>3</td><td class="num">99</td><td class="num">1</td><td class="num">8.8%</td></tr></tbody></table>
+  </section>
+
+  <section class="panel">
+    <h2>Theoretical re-sequencing preview</h2>
+    <div class="bars">
+      <div class="bar"><span>Estimated travel now <b>767 mm</b></span>
+        <div class="track"><div class="fill" style="width:100%;background:#ff5c72"></div></div></div>
+      <div class="bar"><span>Theoretical travel <b>317 mm</b></span>
+        <div class="track"><div class="fill" style="width:41%;background:var(--ok)"></div></div></div>
+      <div class="bar"><span>Estimated trims <b>11 &rarr; 9</b></span>
+        <div class="track"><div class="fill" style="width:81%;background:var(--accent)"></div></div></div>
+    </div>
+    <p class="note">Nearest-neighbour ordering inside each colour block, segments
+    free to sew in either direction, greedy (not a guaranteed-optimal route).
+    Colour order is left untouched. This is a preview of what looks
+    recoverable — no file has been rewritten.</p>
+  </section>
+</div>
+
+<footer>Embroidery AI Copilot &middot; Phase 1 analyser v0.2.0
+&middot; read-only, the source DST is never modified &middot; generated 2026-09-28T20:50:58</footer>
+</div></body></html>

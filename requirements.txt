@@ -1,0 +1,13 @@
+# Phase 1 (analyze/qc) uses only the Python standard library at runtime.
+# Phase 2's vision features (blueprint, technical-plan, simulate-with-image)
+# need OpenCV + numpy -- install with:
+#
+#   pip install -e .[vision]
+#
+# For running the test suite (needs the above plus Pillow, for generating
+# synthetic test images):
+#
+#   pip install -e .[dev]
+#
+# v0.6: lettering / curved text / font suitability additionally need fontTools:
+#   pip install fonttools   (included in the [vision] and [dev] extras)

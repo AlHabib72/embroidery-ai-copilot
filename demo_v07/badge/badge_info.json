@@ -1,0 +1,52 @@
+{
+ "font": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+ "radii_mm": {
+  "outer": 47.0,
+  "border_inner": 43.5,
+  "ring_outer": 33.5,
+  "ring_inner": 31.5
+ },
+ "text": [
+  {
+   "text": "LOUIS VUITTON",
+   "mode": "BOTTOM_AUTO_FLIP",
+   "radius_mm": 37.5,
+   "center": [
+    50.0,
+    50.0
+   ],
+   "start_angle_deg": 143.109,
+   "end_angle_deg": 36.891,
+   "span_deg": 106.218,
+   "clockwise": true,
+   "inward": false,
+   "cap_height_mm": 5.0,
+   "upright_fraction": 1.0,
+   "inner_radius_mm": 37.403,
+   "outer_radius_mm": 42.591,
+   "glyphs": 13,
+   "warnings": []
+  },
+  {
+   "text": "PARIS 1854",
+   "mode": "BOTTOM_AUTO_FLIP",
+   "radius_mm": 42.5,
+   "center": [
+    50.0,
+    50.0
+   ],
+   "start_angle_deg": 235.306,
+   "end_angle_deg": 304.27,
+   "span_deg": 68.964,
+   "clockwise": false,
+   "inward": true,
+   "cap_height_mm": 5.0,
+   "upright_fraction": 1.0,
+   "inner_radius_mm": 37.41,
+   "outer_radius_mm": 42.598,
+   "glyphs": 10,
+   "warnings": []
+  }
+ ],
+ "objects": 25
+}

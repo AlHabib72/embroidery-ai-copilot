@@ -1,0 +1,41 @@
+{
+ "generated": "2026-10-07T11:13:30",
+ "files": {
+  "design.svg": {
+   "status": "EXPORTED",
+   "kind": "technical_render"
+  },
+  "preview.png": {
+   "status": "EXPORTED",
+   "kind": "technical_render"
+  },
+  "qc.json": {
+   "status": "EXPORTED"
+  },
+  "design.dst": {
+   "status": "EXPORTED_VERIFIED",
+   "bytes": 18206,
+   "caveat": "",
+   "expert_override": false
+  }
+ },
+ "metrics": {
+  "object_count": 25,
+  "stitch_count": 5432,
+  "jump_count": 193,
+  "jump_moves": 193,
+  "trim_count": 82,
+  "color_count": 1,
+  "bbox_mm": [
+   2.91,
+   2.9,
+   97.1,
+   97.1
+  ],
+  "center_crossing_travel": 0,
+  "short_stitch_count": 8,
+  "estimated_minutes": 17.25
+ },
+ "wording": "production-oriented, QC validated, machine-format validated; requires sew-out validation",
+ "purpose": "wilcom_handoff"
+}

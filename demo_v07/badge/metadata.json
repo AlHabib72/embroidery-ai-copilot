@@ -1,0 +1,136 @@
+{
+ "generated": "2026-10-07T11:13:28",
+ "files": {
+  "design.svg": {
+   "status": "EXPORTED",
+   "kind": "technical_render"
+  },
+  "preview.png": {
+   "status": "EXPORTED",
+   "kind": "technical_render"
+  },
+  "qc.json": {
+   "status": "EXPORTED"
+  },
+  "design.dst": {
+   "status": "EXPORTED_VERIFIED",
+   "bytes": 18206,
+   "caveat": "",
+   "expert_override": false
+  },
+  "design.exp": {
+   "status": "EXPORTED_VERIFIED",
+   "bytes": 12724,
+   "caveat": "verified against this project's reader only; open in your embroidery software before sewing",
+   "expert_override": false
+  },
+  "design.pes": {
+   "status": "UNAVAILABLE",
+   "reason": "needs Brother PEC colour table + thumbnail block, not shipped; a guessed file would misstate colours"
+  },
+  "design.emb": {
+   "status": "REQUIRES_WILCOM_CONFIGURATION",
+   "reason": "no supported Wilcom API/workflow configured; native EMB creation and editing are UNAVAILABLE",
+   "alternatives": [
+    "design.dst",
+    "design.exp"
+   ]
+  }
+ },
+ "metrics": {
+  "object_count": 25,
+  "stitch_count": 5432,
+  "jump_count": 193,
+  "jump_moves": 193,
+  "trim_count": 82,
+  "color_count": 1,
+  "bbox_mm": [
+   2.91,
+   2.9,
+   97.1,
+   97.1
+  ],
+  "center_crossing_travel": 0,
+  "short_stitch_count": 8,
+  "estimated_minutes": 17.25
+ },
+ "wording": "production-oriented, QC validated, machine-format validated; requires sew-out validation",
+ "machine": "generic_flat",
+ "diff": {
+  "metrics": {
+   "object_count": {
+    "old": 25,
+    "new": 25,
+    "delta": 0
+   },
+   "stitch_count": {
+    "old": 5440,
+    "new": 5432,
+    "delta": -8
+   },
+   "jump_count": {
+    "old": 193,
+    "new": 193,
+    "delta": 0
+   },
+   "jump_moves": {
+    "old": 193,
+    "new": 193,
+    "delta": 0
+   },
+   "trim_count": {
+    "old": 6,
+    "new": 82,
+    "delta": 76
+   },
+   "color_count": {
+    "old": 1,
+    "new": 1,
+    "delta": 0
+   },
+   "center_crossing_travel": {
+    "old": 25,
+    "new": 0,
+    "delta": -25
+   },
+   "short_stitch_count": {
+    "old": 16,
+    "new": 8,
+    "delta": -8
+   },
+   "estimated_minutes": {
+    "old": 9.66,
+    "new": 17.25,
+    "delta": 7.59
+   },
+   "travel_mm": {
+    "old": 1297.7,
+    "new": 1297.7,
+    "delta": 0.0
+   },
+   "bbox_mm": {
+    "old": [
+     2.91,
+     2.9,
+     97.1,
+     97.1
+    ],
+    "new": [
+     2.91,
+     2.9,
+     97.1,
+     97.1
+    ],
+    "delta": null
+   }
+  },
+  "improved": [
+   "center_crossing_travel",
+   "short_stitch_count"
+  ],
+  "worse": [
+   "trim_count"
+  ],
+  "note": "metrics are measured from the two StitchPlans; fewer is not automatically better (see trims vs thread dragged)"
+ }
+}

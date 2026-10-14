@@ -1,0 +1,644 @@
+{
+ "version": "0.5.0",
+ "reference": "synthetic, drawn by code",
+ "profile": "balanced",
+ "fabric": "T_SHIRT",
+ "vision_mode": "Standard",
+ "objects": [
+  {
+   "name": "Region 1",
+   "semantic": "unknown",
+   "semantic_confidence": 0.3,
+   "stitch": "tatami",
+   "risk": "MEDIUM",
+   "match": "MATCH"
+  },
+  {
+   "name": "Region 2",
+   "semantic": "small_detail",
+   "semantic_confidence": 0.6,
+   "stitch": "tatami",
+   "risk": "LOW",
+   "match": "WARNING"
+  },
+  {
+   "name": "Region 3",
+   "semantic": "unknown",
+   "semantic_confidence": 0.3,
+   "stitch": "satin",
+   "risk": "MEDIUM",
+   "match": "MATCH"
+  },
+  {
+   "name": "Region 5",
+   "semantic": "decoration",
+   "semantic_confidence": 0.62,
+   "stitch": "puff",
+   "risk": "LOW",
+   "match": "MATCH"
+  },
+  {
+   "name": "Region 6",
+   "semantic": "decoration",
+   "semantic_confidence": 0.35,
+   "stitch": "puff",
+   "risk": "MEDIUM",
+   "match": "WARNING"
+  },
+  {
+   "name": "Region 7",
+   "semantic": "leaf",
+   "semantic_confidence": 0.884,
+   "stitch": "tatami",
+   "risk": "LOW",
+   "match": "MATCH"
+  },
+  {
+   "name": "Region 8",
+   "semantic": "leaf",
+   "semantic_confidence": 0.867,
+   "stitch": "tatami",
+   "risk": "LOW",
+   "match": "MATCH"
+  },
+  {
+   "name": "Region 9",
+   "semantic": "text",
+   "semantic_confidence": 0.3,
+   "stitch": "tatami",
+   "risk": "MEDIUM",
+   "match": "WARNING"
+  }
+ ],
+ "stats_computed_from_stitches": {
+  "stitch_count": 3289,
+  "jump_count": 165,
+  "trim_count": 8,
+  "color_changes": 6,
+  "stops": 2,
+  "color_count": 6,
+  "top_thread_length_mm": 6168.6,
+  "estimated_minutes": 10.6,
+  "ESTIMATE_ASSUMPTIONS": {
+   "spm": 700.0,
+   "trim_s": 6.0,
+   "color_change_s": 30.0,
+   "jump_s": 0.4,
+   "note": "top-thread length only; no bobbin, no satin take-up"
+  }
+ },
+ "validation": {
+  "status": "WARNING",
+  "findings": [
+   {
+    "severity": "WARNING",
+    "code": "LONG_JUMP",
+    "message": "1 jump(s) longer than 30.0mm",
+    "object_id": "obj_4d1e4d3d",
+    "count": 1
+   },
+   {
+    "severity": "WARNING",
+    "code": "LONG_JUMP",
+    "message": "1 jump(s) longer than 30.0mm",
+    "object_id": "obj_1acd65a0",
+    "count": 1
+   },
+   {
+    "severity": "WARNING",
+    "code": "LONG_JUMP",
+    "message": "1 jump(s) longer than 30.0mm",
+    "object_id": "obj_50f9ea8b",
+    "count": 1
+   },
+   {
+    "severity": "WARNING",
+    "code": "LONG_JUMP",
+    "message": "1 jump(s) longer than 30.0mm",
+    "object_id": "obj_2e2bef31",
+    "count": 1
+   }
+  ]
+ },
+ "qc_issues": [
+  {
+   "code": "ZERO_LENGTH_STITCH",
+   "severity": "WARNING",
+   "message": "1 duplicate-position stitch(es)",
+   "diagnosis": "",
+   "object_id": "obj_50f9ea8b",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "SHORT_STITCH",
+   "severity": "WARNING",
+   "message": "2 stitch(es) shorter than 0.2mm",
+   "diagnosis": "",
+   "object_id": "obj_42bfcf88",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "LONG_STITCH",
+   "severity": "WARNING",
+   "message": "1 stitch(es) longer than 7.5mm (snag risk)",
+   "diagnosis": "",
+   "object_id": "obj_8d3bf5c9",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "LONG_JUMP",
+   "severity": "WARNING",
+   "message": "1 jump(s) longer than 30.0mm",
+   "diagnosis": "",
+   "object_id": "obj_4d1e4d3d",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "LONG_JUMP",
+   "severity": "WARNING",
+   "message": "1 jump(s) longer than 30.0mm",
+   "diagnosis": "",
+   "object_id": "obj_1acd65a0",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "LONG_JUMP",
+   "severity": "WARNING",
+   "message": "1 jump(s) longer than 30.0mm",
+   "diagnosis": "",
+   "object_id": "obj_50f9ea8b",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "LONG_JUMP",
+   "severity": "WARNING",
+   "message": "1 jump(s) longer than 30.0mm",
+   "diagnosis": "",
+   "object_id": "obj_2e2bef31",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "EXCESSIVE_JUMPS",
+   "severity": "WARNING",
+   "message": "165 jumps (target <= 30)",
+   "diagnosis": "jumps come from fill runs split by holes/concavities and from object-to-object moves",
+   "object_id": null,
+   "metric": 165,
+   "target": 30
+  },
+  {
+   "code": "EXCESSIVE_TRIMS",
+   "severity": "WARNING",
+   "message": "8 trims (target <= 6)",
+   "diagnosis": "each long jump is trimmed; connector weights may favour trims",
+   "object_id": null,
+   "metric": 8,
+   "target": 6
+  },
+  {
+   "code": "UNNECESSARY_TRAVEL",
+   "severity": "WARNING",
+   "message": "22.6% of movement is jump travel",
+   "diagnosis": "long jumps between distant objects",
+   "object_id": null,
+   "metric": 0.226,
+   "target": 0.12
+  },
+  {
+   "code": "TOO_SHORT_STITCHES",
+   "severity": "WARNING",
+   "message": "13 stitches shorter than 0.3mm",
+   "diagnosis": "curve resampling or fill row ends create near-duplicate points",
+   "object_id": null,
+   "metric": 13,
+   "target": 0
+  },
+  {
+   "code": "TOO_LONG_STITCHES",
+   "severity": "WARNING",
+   "message": "1 stitches longer than 7.5mm",
+   "diagnosis": "snag risk",
+   "object_id": null,
+   "metric": 1,
+   "target": 0
+  },
+  {
+   "code": "FABRIC_WARNING",
+   "severity": "INFO",
+   "message": "Region 1: Knit stretch can distort outlines: consider stabiliser.",
+   "diagnosis": "",
+   "object_id": "obj_b51c9d7e",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "FABRIC_WARNING",
+   "severity": "INFO",
+   "message": "Region 2: Knit stretch can distort outlines: consider stabiliser.",
+   "diagnosis": "",
+   "object_id": "obj_4d1e4d3d",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "FABRIC_WARNING",
+   "severity": "INFO",
+   "message": "Region 3: Knit stretch can distort outlines: consider stabiliser.",
+   "diagnosis": "",
+   "object_id": "obj_eb9a9cfd",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "FABRIC_WARNING",
+   "severity": "INFO",
+   "message": "Region 5: Knit stretch can distort outlines: consider stabiliser.",
+   "diagnosis": "",
+   "object_id": "obj_42bfcf88",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "FABRIC_WARNING",
+   "severity": "INFO",
+   "message": "Region 6: Knit stretch can distort outlines: consider stabiliser.",
+   "diagnosis": "",
+   "object_id": "obj_2e2bef31",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "FABRIC_WARNING",
+   "severity": "INFO",
+   "message": "Region 7: Knit stretch can distort outlines: consider stabiliser.",
+   "diagnosis": "",
+   "object_id": "obj_8d3bf5c9",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "FABRIC_WARNING",
+   "severity": "INFO",
+   "message": "Region 8: Knit stretch can distort outlines: consider stabiliser.",
+   "diagnosis": "",
+   "object_id": "obj_1acd65a0",
+   "metric": null,
+   "target": null
+  },
+  {
+   "code": "FABRIC_WARNING",
+   "severity": "INFO",
+   "message": "Region 9: Knit stretch can distort outlines: consider stabiliser.",
+   "diagnosis": "",
+   "object_id": "obj_50f9ea8b",
+   "metric": null,
+   "target": null
+  }
+ ],
+ "repair": {
+  "proposals": [
+   {
+    "name": "cleanup_short_stitches",
+    "fixes": [
+     "TOO_SHORT_STITCHES"
+    ],
+    "description": "remove near-duplicate points inside a part",
+    "before": {
+     "stitches": 3301,
+     "jumps": 165,
+     "trims": 8,
+     "color_changes": 6,
+     "stops": 2,
+     "short_stitches": 13,
+     "long_stitches": 1,
+     "travel_mm": 1801.8,
+     "stitched_mm": 6171.2,
+     "travel_fraction": 0.226,
+     "estimated_minutes": 10.62
+    },
+    "after": {
+     "stitches": 3288,
+     "jumps": 165,
+     "trims": 8,
+     "color_changes": 6,
+     "stops": 2,
+     "short_stitches": 0,
+     "long_stitches": 1,
+     "travel_mm": 1801.8,
+     "stitched_mm": 6168.6,
+     "travel_fraction": 0.2261,
+     "estimated_minutes": 10.6
+    },
+    "status": "PROPOSED",
+    "delta": {
+     "stitches": -13,
+     "jumps": 0,
+     "trims": 0,
+     "color_changes": 0,
+     "short_stitches": -13,
+     "long_stitches": 0,
+     "travel_mm": 0.0,
+     "estimated_minutes": -0.02
+    },
+    "note": ""
+   },
+   {
+    "name": "split_long_stitches",
+    "fixes": [
+     "TOO_LONG_STITCHES"
+    ],
+    "description": "subdivide non-satin stitches over 7mm",
+    "before": {
+     "stitches": 3301,
+     "jumps": 165,
+     "trims": 8,
+     "color_changes": 6,
+     "stops": 2,
+     "short_stitches": 13,
+     "long_stitches": 1,
+     "travel_mm": 1801.8,
+     "stitched_mm": 6171.2,
+     "travel_fraction": 0.226,
+     "estimated_minutes": 10.62
+    },
+    "after": {
+     "stitches": 3302,
+     "jumps": 165,
+     "trims": 8,
+     "color_changes": 6,
+     "stops": 2,
+     "short_stitches": 13,
+     "long_stitches": 0,
+     "travel_mm": 1801.8,
+     "stitched_mm": 6171.2,
+     "travel_fraction": 0.226,
+     "estimated_minutes": 10.62
+    },
+    "status": "PROPOSED",
+    "delta": {
+     "stitches": 1,
+     "jumps": 0,
+     "trims": 0,
+     "color_changes": 0,
+     "short_stitches": 0,
+     "long_stitches": -1,
+     "travel_mm": 0.0,
+     "estimated_minutes": 0.0
+    },
+    "note": ""
+   },
+   {
+    "name": "reduce_trims",
+    "fixes": [
+     "EXCESSIVE_TRIMS"
+    ],
+    "description": "re-plan connectors with a higher trim cost (prefer jumps / hidden travel)",
+    "before": {
+     "stitches": 3301,
+     "jumps": 165,
+     "trims": 8,
+     "color_changes": 6,
+     "stops": 2,
+     "short_stitches": 13,
+     "long_stitches": 1,
+     "travel_mm": 1801.8,
+     "stitched_mm": 6171.2,
+     "travel_fraction": 0.226,
+     "estimated_minutes": 10.62
+    },
+    "after": {
+     "stitches": 3301,
+     "jumps": 165,
+     "trims": 8,
+     "color_changes": 6,
+     "stops": 2,
+     "short_stitches": 13,
+     "long_stitches": 1,
+     "travel_mm": 1801.8,
+     "stitched_mm": 6171.2,
+     "travel_fraction": 0.226,
+     "estimated_minutes": 10.62
+    },
+    "status": "NO_EFFECT",
+    "delta": {
+     "stitches": 0,
+     "jumps": 0,
+     "trims": 0,
+     "color_changes": 0,
+     "short_stitches": 0,
+     "long_stitches": 0,
+     "travel_mm": 0.0,
+     "estimated_minutes": 0.0
+    },
+    "note": "no measured improvement on the targeted metrics"
+   },
+   {
+    "name": "reduce_travel",
+    "fixes": [
+     "EXCESSIVE_JUMPS",
+     "UNNECESSARY_TRAVEL"
+    ],
+    "description": "re-plan connectors with a higher travel cost (prefer hidden routed travel)",
+    "before": {
+     "stitches": 3301,
+     "jumps": 165,
+     "trims": 8,
+     "color_changes": 6,
+     "stops": 2,
+     "short_stitches": 13,
+     "long_stitches": 1,
+     "travel_mm": 1801.8,
+     "stitched_mm": 6171.2,
+     "travel_fraction": 0.226,
+     "estimated_minutes": 10.62
+    },
+    "after": {
+     "stitches": 3301,
+     "jumps": 165,
+     "trims": 8,
+     "color_changes": 6,
+     "stops": 2,
+     "short_stitches": 13,
+     "long_stitches": 1,
+     "travel_mm": 1801.8,
+     "stitched_mm": 6171.2,
+     "travel_fraction": 0.226,
+     "estimated_minutes": 10.62
+    },
+    "status": "NO_EFFECT",
+    "delta": {
+     "stitches": 0,
+     "jumps": 0,
+     "trims": 0,
+     "color_changes": 0,
+     "short_stitches": 0,
+     "long_stitches": 0,
+     "travel_mm": 0.0,
+     "estimated_minutes": 0.0
+    },
+    "note": "no measured improvement on the targeted metrics"
+   }
+  ],
+  "applied_in_demo": [
+   "cleanup_short_stitches",
+   "split_long_stitches"
+  ],
+  "before": {
+   "stitches": 3301,
+   "jumps": 165,
+   "trims": 8,
+   "color_changes": 6,
+   "stops": 2,
+   "short_stitches": 13,
+   "long_stitches": 1,
+   "travel_mm": 1801.8,
+   "stitched_mm": 6171.2,
+   "travel_fraction": 0.226,
+   "estimated_minutes": 10.62
+  },
+  "after": {
+   "stitches": 3289,
+   "jumps": 165,
+   "trims": 8,
+   "color_changes": 6,
+   "stops": 2,
+   "short_stitches": 0,
+   "long_stitches": 0,
+   "travel_mm": 1801.8,
+   "stitched_mm": 6168.6,
+   "travel_fraction": 0.2261,
+   "estimated_minutes": 10.6
+  },
+  "note": "applied automatically ONLY in this demo; the dashboard requires a human to apply each repair"
+ },
+ "comparison": {
+  "coverage_of_reference": 0.988,
+  "stitched_outside_reference": 0.002,
+  "iou": 0.877,
+  "extra_stitching": "OK"
+ },
+ "hoop": {
+  "status": "VALID",
+  "design_mm": [
+   70.7,
+   68.7
+  ],
+  "hoop": "generic-130x180",
+  "usable_mm": [
+   124.0,
+   174.0
+  ]
+ },
+ "threads": {
+  "name": "Colorway 1",
+  "brand": "Generic-24",
+  "mode": "nearest",
+  "thread_count": 6,
+  "entries": [
+   {
+    "design_color": "rgb(170,60,199)",
+    "brand": "Generic-24",
+    "code": "G16",
+    "name": "Purple",
+    "hex": "#6A2C91",
+    "delta_e2000": 14.3,
+    "quality": "different colour",
+    "note": ""
+   },
+   {
+    "design_color": "rgb(50,159,50)",
+    "brand": "Generic-24",
+    "code": "G10",
+    "name": "Green",
+    "hex": "#2E8B3D",
+    "delta_e2000": 7.62,
+    "quality": "noticeable difference",
+    "note": ""
+   },
+   {
+    "design_color": "rgb(30,90,30)",
+    "brand": "Generic-24",
+    "code": "G11",
+    "name": "Dark Green",
+    "hex": "#1B5E20",
+    "delta_e2000": 1.38,
+    "quality": "perceptible on close inspection",
+    "note": ""
+   },
+   {
+    "design_color": "rgb(170,0,0)",
+    "brand": "Generic-24",
+    "code": "G05",
+    "name": "Red",
+    "hex": "#C8102E",
+    "delta_e2000": 10.36,
+    "quality": "different colour",
+    "note": ""
+   },
+   {
+    "design_color": "rgb(0,60,150)",
+    "brand": "Generic-24",
+    "code": "G14",
+    "name": "Blue",
+    "hex": "#1F5FBF",
+    "delta_e2000": 12.02,
+    "quality": "different colour",
+    "note": ""
+   },
+   {
+    "design_color": "rgb(229,169,0)",
+    "brand": "Generic-24",
+    "code": "G22",
+    "name": "Gold",
+    "hex": "#C9A227",
+    "delta_e2000": 6.24,
+    "quality": "noticeable difference",
+    "note": ""
+   }
+  ],
+  "disclaimer": "Delta-E is a screen-referred sRGB comparison, not a prediction of sewn appearance."
+ },
+ "exports": {
+  "dst": {
+   "format": "dst",
+   "status": "IMPLEMENTED",
+   "path": "demo/exports/design.dst",
+   "bytes": 11090,
+   "verified": true,
+   "verification": "read back with this project's own parser and compared stitch count, colour changes and coordinates",
+   "caveat": ""
+  },
+  "exp": {
+   "format": "exp",
+   "status": "EXPERIMENTAL",
+   "path": "demo/exports/design.exp",
+   "bytes": 7522,
+   "verified": true,
+   "verification": "read back with this project's own parser and compared stitch count, colour changes and coordinates",
+   "caveat": "verified against this project's reader only; open in your embroidery software before sewing"
+  }
+ },
+ "unavailable": {
+  "pes": "needs Brother PEC colour table + thumbnail block, not shipped; a guessed file would misstate colours",
+  "jef": "needs Janome colour table, not shipped",
+  "emb": "Wilcom native; requires a supported Wilcom API/workflow (EMB_API_NOT_CONFIGURED)"
+ },
+ "approval": "DEMO STAND-IN: a real workflow requires explicit human approval before export",
+ "timings_s": {
+  "vision": 1.274,
+  "blueprint+semantics": 0.027,
+  "technical": 0.001,
+  "stitch+sequence+connectors": 0.625,
+  "validate": 0.087,
+  "compare": 0.285,
+  "total": 2.326
+ },
+ "human_review": "required"
+}

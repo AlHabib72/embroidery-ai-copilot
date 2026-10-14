@@ -1,0 +1,152 @@
+{
+ "machine": "generic_flat",
+ "issues": [
+  {
+   "code": "EXCESSIVE_JUMP",
+   "severity": "WARNING",
+   "category": "Pathing QC",
+   "message": "193 jumps for 5432 stitches (35.5/1000, limit 12)",
+   "object_id": null,
+   "count": 193,
+   "regions": [
+    [
+     96.6,
+     50.0
+    ],
+    [
+     82.5,
+     23.58
+    ],
+    [
+     80.67,
+     21.33
+    ],
+    [
+     83.23,
+     23.81
+    ],
+    [
+     81.24,
+     21.82
+    ],
+    [
+     82.05,
+     23.22
+    ],
+    [
+     80.91,
+     22.68
+    ],
+    [
+     80.03,
+     22.39
+    ],
+    [
+     81.42,
+     23.78
+    ],
+    [
+     80.58,
+     23.54
+    ],
+    [
+     79.66,
+     22.61
+    ],
+    [
+     79.7,
+     23.25
+    ],
+    [
+     80.78,
+     24.33
+    ],
+    [
+     80.26,
+     24.4
+    ],
+    [
+     79.02,
+     23.17
+    ],
+    [
+     79.37,
+     24.11
+    ],
+    [
+     80.15,
+     24.89
+    ],
+    [
+     78.39,
+     23.72
+    ],
+    [
+     79.05,
+     24.97
+    ],
+    [
+     77.76,
+     24.28
+    ]
+   ]
+  }
+ ],
+ "metrics": {
+  "object_count": 25,
+  "stitch_count": 5432,
+  "jump_count": 193,
+  "jump_moves": 193,
+  "trim_count": 82,
+  "color_count": 1,
+  "bbox_mm": [
+   2.91,
+   2.9,
+   97.1,
+   97.1
+  ],
+  "center_crossing_travel": 0,
+  "short_stitch_count": 8,
+  "estimated_minutes": 17.25
+ },
+ "categories": {
+  "Geometry QC": {
+   "errors": 0,
+   "warnings": 0
+  },
+  "Vision QC": {
+   "errors": 0,
+   "warnings": 0
+  },
+  "Object QC": {
+   "errors": 0,
+   "warnings": 0
+  },
+  "Stitch QC": {
+   "errors": 0,
+   "warnings": 0
+  },
+  "Pathing QC": {
+   "errors": 0,
+   "warnings": 1
+  },
+  "Fabric QC": {
+   "errors": 0,
+   "warnings": 0
+  },
+  "Thread QC": {
+   "errors": 0,
+   "warnings": 0
+  },
+  "Export QC": {
+   "errors": 0,
+   "warnings": 0
+  },
+  "Reference QC": {
+   "errors": 0,
+   "warnings": 0
+  }
+ },
+ "error_count": 0,
+ "wording": "QC validated; requires sew-out validation (no production guarantee)"
+}
