@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+body { background: #070f1a; color: #e8edf5; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif; }
