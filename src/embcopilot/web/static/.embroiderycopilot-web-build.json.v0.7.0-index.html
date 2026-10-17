@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Embroidery AI Copilot</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2330;--mut:#6b7686;--acc:#1f5fbf;--ok:#2e8b3d;--warn:#c98a00;--err:#c8102e;--line:#dde2ea}
+*{box-sizing:border-box}body{margin:0;font:14px/1.45 system-ui,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#0b2545;color:#fff;padding:10px 18px;display:flex;justify-content:space-between;align-items:center}
+header h1{font-size:17px;margin:0}header small{opacity:.75}
+main{max-width:1250px;margin:0 auto;padding:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:12px}
+#drop{border:2px dashed #9db0cc;border-radius:10px;text-align:center;padding:34px;color:var(--mut);cursor:pointer}
+#drop.over{background:#eaf1fb;border-color:var(--acc)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}.row label{display:flex;flex-direction:column;font-size:12px;color:var(--mut);gap:2px}
+select,input,button{font:inherit;padding:6px 9px;border:1px solid #bcc6d4;border-radius:6px;background:#fff}
+button{cursor:pointer;background:var(--acc);color:#fff;border-color:var(--acc)}button.sec{background:#fff;color:var(--acc)}
+button:disabled{opacity:.45;cursor:not-allowed;background:#9aa6b8;border-color:#9aa6b8;color:#fff}
+.bar{height:10px;background:#e3e8f0;border-radius:6px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--acc);transition:width .3s}
+.stages{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;font-size:11px}.stages span{padding:2px 7px;border-radius:10px;background:#e8edf5;color:var(--mut)}
+.stages span.done{background:#d8efdc;color:var(--ok)}.stages span.cur{background:var(--acc);color:#fff}
+nav{display:flex;flex-wrap:wrap;gap:2px;border-bottom:1px solid var(--line);margin-bottom:10px}
+nav a{padding:7px 12px;cursor:pointer;color:var(--mut);border-bottom:3px solid transparent}nav a.on{color:var(--acc);border-color:var(--acc);font-weight:600}
+table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top;font-size:13px}th{color:var(--mut);font-weight:600}
+.tag{display:inline-block;padding:1px 7px;border-radius:9px;font-size:11px;background:#e8edf5}.SAFE,.LOW,.VALID,.MATCH,.IMPLEMENTED{background:#d8efdc;color:var(--ok)}
+.MEDIUM,.WARNING,.EXPERIMENTAL,.PARTIAL,.PROPOSED{background:#fdf0cf;color:var(--warn)}.HIGH,.CRITICAL,.ERROR,.UNAVAILABLE,.MISSING,.DISTORTED,.REJECTED_BY_QC{background:#f9d8de;color:var(--err)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:12px}img.pv{width:100%;border:1px solid var(--line);border-radius:6px;background:#fff}
+.sw{display:inline-block;width:16px;height:16px;border:1px solid #888;vertical-align:middle;margin-right:5px;border-radius:3px}
+.note{color:var(--mut);font-size:12px}.err{color:var(--err)}.banner{background:#fff6dc;border:1px solid #f0d98c;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13px}
+iframe{width:100%;height:560px;border:1px solid var(--line);border-radius:6px}code{background:#eef1f6;padding:1px 5px;border-radius:4px}
+</style></head><body>
+<header><h1>Embroidery AI Copilot</h1><small id="ver"></small></header>
+<main>
+<div class="card" id="home">
+  <div id="drop"><b>Drag &amp; drop a design here</b><br>PNG · JPG · WEBP · SVG · AI (PDF-compatible) — or click to choose<br><span class="note">DST / EXP / PES / JEF / EMB files are accepted for inspection only</span>
+  <input id="file" type="file" hidden multiple accept=".png,.jpg,.jpeg,.webp,.svg,.ai,.pdf,.dst,.exp,.pes,.jef,.emb"></div>
+  <div id="jobs" style="margin-top:8px"></div>
+</div>
+<div id="work" hidden>
+ <div class="card"><div class="row">
+  <label>Width mm<input id="w" type="number" value="100" min="5" max="1000" style="width:80px"></label>
+  <label>Height mm<input id="h" type="number" value="100" min="5" max="1000" style="width:80px"></label>
+  <label>Fabric<select id="fabric"></select></label><label>Profile<select id="profile"></select></label>
+  <label>Thread brand<select id="brand"></select></label><label>Colour mode<select id="cmode"></select></label>
+  <label>Hoop<select id="hoop"><option value="">(none)</option></select></label>
+  <label>Vision<select id="seg"><option value="standard">Standard</option><option value="sam2">SAM2 (optional)</option></select></label>
+  <button id="analyze">Analyze &amp; Generate Stitch Plan</button><button class="sec" id="cancel" hidden>Cancel</button>
+ </div>
+ <div class="bar" style="margin-top:10px"><i id="pbar" style="width:0"></i></div><div class="stages" id="stages"></div><div id="msg" class="note" style="margin-top:6px"></div></div>
+ <div class="card" id="review" hidden>
+  <div class="row" style="margin-bottom:8px">
+   <button class="sec" id="qc">Run QC</button><button class="sec" id="repair">Auto Repair…</button>
+   <button id="approve">Approve</button><button class="sec" id="reject">Reject</button>
+   <span id="ex"></span><a id="zip"><button class="sec">Download All (ZIP)</button></a>
+  </div>
+  <div id="banner"></div>
+  <nav id="tabs"></nav><div id="pane"></div>
+ </div>
+</div></main>
+<section id="v06" style="margin:12px;padding:12px;border:1px solid #8884;border-radius:8px;font:14px system-ui">
+<h3 style="margin:0 0 8px">AI Prompt Box <small style="font-weight:400">- text -> validated steps -> your approval -> engine. Nothing runs without a schema check.</small></h3>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:6px">
+<label>AI <select id="aiMode"><option>LOCAL</option><option>HYBRID</option><option>CLOUD</option></select></label>
+<label>Approval <select id="apMode"><option>CONFIRM</option><option>SUGGEST</option><option>AUTO</option><option>MANUAL</option></select></label>
+<span id="aiBadge" style="padding:2px 8px;border-radius:10px;background:#8883"></span><span id="aiPriv" style="opacity:.75"></span></div>
+<textarea id="pbText" rows="2" style="width:100%;box-sizing:border-box;padding:6px" placeholder='e.g. Convert the outer ring to a 3.5mm satin/Input C border, use denim preset, add edge-run plus zigzag underlay, reduce unnecessary trims, preserve the LV monogram, and use gold thread.   (Hinglish works: "outer ring ko 3.5mm satin karo")'></textarea>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0">
+<button id="pbSend">Propose</button><button id="pbOk" disabled>Approve</button><button id="pbNo" disabled>Reject</button>
+<button id="pbUndo" disabled>Undo</button><button id="pbRedo" disabled>Redo</button><button id="pbQc">QC v2 + package</button><button id="pbHand">EMB handoff</button><button id="v06emb" disabled>EMB</button></div>
+<div id="pbMeta" style="opacity:.85;margin:4px 0"></div><div id="pbChips" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+<pre id="v06out" style="white-space:pre-wrap;max-height:280px;overflow:auto;background:#8881;padding:8px;border-radius:6px"></pre></section>
+<script>
+const $=id=>document.getElementById(id);let JOB=null,TAB='Objects',POLL=null,TOKEN=new URLSearchParams(location.search).get('token')||'';
+const hdr=()=>TOKEN?{'X-Token':TOKEN}:{};const api=(p,o={})=>fetch('/api'+p,{...o,headers:{...hdr(),...(o.headers||{})}}).then(async r=>{const j=await r.json().catch(()=>({}));if(!r.ok)throw Object.assign(new Error(j.message||r.statusText),{code:j.error});return j});
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const tag=(t,c)=>`<span class="tag ${esc(c||t)}">${esc(t)}</span>`;const pct=v=>v==null?'–':Math.round(v*100)+'%';
+const rgb=c=>{const m=(c||'').match(/\d+/g);return m?`rgb(${m[0]},${m[1]},${m[2]})`:'#888'};
+const art=(p)=>`/api/jobs/${JOB.job_id}/artifacts/${p}`+(TOKEN?`?token=${TOKEN}`:'');
+async function init(){const [c,o]=await Promise.all([api('/capabilities'),api('/options')]);$('ver').textContent='v'+c.version+' · runs locally · nothing is uploaded';
+ const fill=(id,a,sel)=>$(id).innerHTML=a.map(x=>`<option ${x===sel?'selected':''}>${x}</option>`).join('');
+ fill('fabric',o.fabrics,'T_SHIRT');fill('profile',o.profiles,'balanced');fill('brand',o.brands);fill('cmode',o.colorway_modes);
+ $('hoop').innerHTML+=o.hoops.map(x=>`<option>${x}</option>`).join('');
+ const sam=c.models.find(m=>m.name==='SAM 2');if(sam&&sam.state!=='INSTALLED'){$('seg').querySelector('[value=sam2]').textContent='SAM2 (unavailable: falls back to Standard)'}}
+async function upload(files){for(const f of files){try{const j=await api('/jobs',{method:'POST',headers:{'X-Filename':f.name},body:f});addJob(j)}catch(e){$('jobs').insertAdjacentHTML('beforeend',`<div class="err">${esc(f.name)}: ${esc(e.code||'')} ${esc(e.message)}</div>`)}}}
+function addJob(j){const bad=j.status==='failed';$('jobs').insertAdjacentHTML('beforeend',`<div>${esc(j.input_file)} — ${tag(j.input_kind||'?',bad?'ERROR':'IMPLEMENTED')} ${bad?`<span class=err>${esc(j.error)}</span>`:`<a href="#" onclick="openJob('${j.job_id}');return false">open</a>`}</div>`);if(!bad)openJob(j.job_id)}
+async function openJob(id){JOB=await api('/jobs/'+id);$('work').hidden=false;render();if(JOB.status==='processing')poll()}
+function poll(){clearInterval(POLL);POLL=setInterval(async()=>{JOB=await api('/jobs/'+JOB.job_id);render();if(JOB.status!=='processing')clearInterval(POLL)},600)}
+$('analyze').onclick=async()=>{const body={width_mm:+$('w').value,height_mm:+$('h').value,fabric:$('fabric').value,profile:$('profile').value,brand:$('brand').value,colorway_mode:$('cmode').value,hoop:$('hoop').value,segmentation:$('seg').value};
+ try{JOB=await api(`/jobs/${JOB.job_id}/analyze`,{method:'POST',body:JSON.stringify(body)});render();poll()}catch(e){$('msg').innerHTML=`<span class=err>${esc(e.code)}: ${esc(e.message)}</span>`}};
+$('cancel').onclick=()=>api(`/jobs/${JOB.job_id}/cancel`,{method:'POST'});
+$('qc').onclick=async()=>{TAB='QC';render()};
+$('repair').onclick=async()=>{TAB='QC';render()};
+$('approve').onclick=async()=>{const n=prompt('Approval note (optional):','')??null;if(n===null)return;try{JOB=await api(`/jobs/${JOB.job_id}/approve`,{method:'POST',body:JSON.stringify({approved:true,note:n})});render()}catch(e){alert(e.code+': '+e.message)}};
+$('reject').onclick=async()=>{JOB=await api(`/jobs/${JOB.job_id}/approve`,{method:'POST',body:JSON.stringify({approved:false})});render()};
+async function doExport(f){try{const r=await api(`/jobs/${JOB.job_id}/export/${f}`,{method:'POST'});JOB=r.job;render();location.href=art('exports/design.'+f)}catch(e){alert(e.code+': '+e.message)}}
+async function applyRepair(n){try{const r=await api(`/jobs/${JOB.job_id}/repair`,{method:'POST',body:JSON.stringify({apply:[n]})});JOB=r.job;render()}catch(e){alert(e.code+': '+e.message)}}
+const TABS=['Reference','Vision','Objects','Blueprint','Technical','Stitches','Preview','QC','Threads','Export','Automation','Audit'];
+function render(){const J=JOB;if(!J)return;$('pbar').style.width=J.progress+'%';const si=J.stages.indexOf(J.stage);
+ $('stages').innerHTML=J.stages.map((s,i)=>`<span class="${J.status==='processing'?(i<si?'done':i===si?'cur':''):(J.status==='failed'?'':(i<=si||J.status!=='created')&&J.objects?'done':'')}">${s}</span>`).join('');
+ $('msg').innerHTML=J.status==='failed'?`<span class=err>${esc(J.error)}</span>`:`${esc(J.status)} · ${esc(J.stage)} ${J.progress}%`+(J.warnings.length?' · '+J.warnings.map(esc).join(' · '):'');
+ $('cancel').hidden=J.status!=='processing';$('analyze').disabled=J.status==='processing';const has=!!J.objects;$('review').hidden=!has;if(!has)return;
+ $('approve').disabled=J.approved||J.validation.status==='ERROR';$('reject').disabled=!J.approved;$('repair').disabled=!(J.repair_proposals||[]).some(p=>p.status==='PROPOSED');
+ $('zip').href=`/api/jobs/${J.job_id}/zip`+(TOKEN?`?token=${TOKEN}`:'');
+ $('banner').innerHTML=`<div class="banner"><b>Vision:</b> ${esc(J.vision_mode)} · <b>Validation:</b> ${tag(J.validation.status)} · <b>Approval:</b> ${J.approved?tag('APPROVED','VALID'):tag('REQUIRED','WARNING')} · ${J.stats.stitch_count} stitches · ${J.stats.color_count} colours · ${J.stats.trim_count} trims · ${J.stats.jump_count} jumps · est. ${J.stats.estimated_minutes} min <span class=note>(estimate)</span></div>`;
+ $('ex').innerHTML=['dst','exp','pes','jef','emb'].map(f=>{const c=J.exports_available[f];return `<button ${c.enabled?'':'disabled'} title="${esc(c.disabled_reason||c.status)}" onclick="doExport('${f}')">${f==='emb'?'Export EMB':'Download '+f.toUpperCase()}</button>`}).join(' ');
+ $('tabs').innerHTML=TABS.map(t=>`<a class="${t===TAB?'on':''}" onclick="TAB='${t}';render()">${t}</a>`).join('');$('pane').innerHTML=pane(J)}
+function pane(J){const O=J.objects;switch(TAB){
+case 'Reference':return `<img class="pv" src="${art('vision/01_reference.png')}" style="max-width:520px">`;
+case 'Vision':return `<div class="grid"><div><b>Background removed</b><img class="pv" src="${art('vision/02_background_removed.png')}"></div><div><b>Segmentation</b><img class="pv" src="${art('vision/03_segmentation.png')}"></div></div><p class="note">Mode: ${esc(J.vision_mode)}</p>`;
+case 'Objects':return `<table><tr><th>Object</th><th>Semantic (heuristic)</th><th>Alternatives</th><th>Parent</th><th>Risk</th><th>Why review</th><th>Reference match</th></tr>`+O.map(o=>`<tr><td><span class=sw style="background:${rgb(o.color)}"></span>${esc(o.name)}</td><td>${esc(o.semantic)} ${pct(o.semantic_confidence)}<div class=note>${esc(o.reason)}</div></td><td>${o.alternatives.map(a=>esc(a.type)+' '+pct(a.confidence)).join(', ')||'–'}</td><td>${esc((O.find(x=>x.id===o.parent)||{}).name||'–')}</td><td>${tag(o.risk)}</td><td>${o.why_review.map(esc).join('<br>')||'–'}</td><td>${o.match?tag(o.match.status)+` cov ${pct(o.match.coverage)} · contour ${o.match.contour_chamfer_mm??'–'}mm`:'–'}</td></tr>`).join('')+'</table>';
+case 'Blueprint':return `<img class="pv" style="max-width:520px" src="${art('vision/03_segmentation.png')}"><pre>${esc(O.map(o=>`${'  '.repeat(o.parent?1:0)}${o.name} [${o.semantic}] z=${o.z}`).join('\n'))}</pre><p class=note>Hierarchy is geometric containment/occlusion, not a semantic Bird>Head>Eye tree.</p>`;
+case 'Technical':return `<table><tr><th>Object</th><th>Stitch</th><th>Density</th><th>Underlay</th><th>Pull comp</th><th>Angle</th><th>Warnings</th></tr>`+O.map(o=>`<tr><td>${esc(o.name)}</td><td>${esc(o.stitch)}${(o.status.warnings||[]).map(w=>`<div class=note>${esc(w)}</div>`).join('')}</td><td>${o.density_mm} mm</td><td>${esc(o.underlay)}</td><td>${o.pull_mm} mm</td><td>${o.angle==null?'–':Math.round(o.angle)+'°'}</td><td>${o.tech_warnings.map(esc).join('<br>')||'–'}</td></tr>`).join('')+'</table>';
+case 'Stitches':return `<div class="grid"><div><b>Stitch path (SIMULATION)</b><img class="pv" src="${art('simulation/11_simulation.png')}"></div><div><b>Thread render (SIMULATION)</b><img class="pv" src="${art('simulation/11b_simulation_thread.png')}"></div></div>`;
+case 'Preview':return `<iframe src="${art('simulation/playback.html')}"></iframe>`;
+case 'QC':return qc(J);
+case 'Threads':{const c=J.colorway;return c?`<p class=note>${esc(c.brand)} · ${esc(c.mode)} · ${c.thread_count} thread(s). ${esc(c.disclaimer)}</p><table><tr><th>Design colour</th><th>Thread</th><th>ΔE2000</th><th></th></tr>`+c.entries.map(e=>`<tr><td><span class=sw style="background:${rgb(e.design_color)}"></span>${esc(e.design_color)}</td><td><span class=sw style="background:${e.hex}"></span>${esc(e.brand)} ${esc(e.code)} ${esc(e.name)}</td><td>${e.delta_e2000}</td><td>${esc(e.quality)}</td></tr>`).join('')+'</table><p class=note>Only a generic project palette ships. Import your licensed brand CSV for real Madeira/Isacord/Gunold codes.</p>':'–'}
+case 'Export':return `<table><tr><th>Format</th><th>Status</th><th>Note</th></tr>`+Object.values(J.exports_available).map(c=>`<tr><td>${c.fmt.toUpperCase()}</td><td>${tag(c.status)}</td><td>${esc(c.reason)}${c.enabled?'':'<div class=note>disabled: '+esc(c.disabled_reason)+'</div>'}</td></tr>`).join('')+'</table>'+Object.values(J.exports_done).map(e=>`<p>${tag('VERIFIED','VALID')} ${esc(e.path)} (${e.bytes} B) — ${esc(e.verification)} ${esc(e.caveat)}</p>`).join('')+(J.hoop?`<p>Hoop: ${tag(J.hoop.status,J.hoop.status==='VALID'?'VALID':'ERROR')} design ${J.hoop.design_mm.join('×')} mm, usable ${J.hoop.usable_mm.join('×')} mm</p>`:'');
+case 'Automation':return `<p>${tag('MOCK','EXPERIMENTAL')} MockWilcomAdapter only. ${tag('UNAVAILABLE')} Wilcom ES-65 / E4 real automation. Nothing is sent to any application; the plan is at <code>qc/12_action_plan.json</code>.</p>`;
+case 'Audit':return `<p class=note>Structured log: <a href="${art('logs/job.jsonl')}">logs/job.jsonl</a></p><ul>${J.artifacts.map(a=>`<li><a href="${art(a)}">${esc(a)}</a></li>`).join('')}</ul>`;}}
+function qc(J){const I=J.qc_issues,P=J.repair_proposals;return `<h4>Validation ${tag(J.validation.status)} · Reference match: coverage ${pct(J.comparison_global.coverage_of_reference)} · outside ${pct(J.comparison_global.stitched_outside_reference)}</h4>
+<table><tr><th>Severity</th><th>Code</th><th>Message</th><th>Diagnosis</th></tr>${I.map(i=>`<tr><td>${tag(i.severity)}</td><td>${esc(i.code)}</td><td>${esc(i.message)}</td><td>${esc(i.diagnosis)}</td></tr>`).join('')||'<tr><td colspan=4>No issues</td></tr>'}</table>
+<h4>Repair proposals <span class=note>(simulated on a copy, re-checked; nothing changes until you apply)</span></h4>
+<table><tr><th>Repair</th><th>Fixes</th><th>Measured effect</th><th>Status</th><th></th></tr>${P.map(p=>`<tr><td>${esc(p.name)}<div class=note>${esc(p.description)}</div></td><td>${p.fixes.map(esc).join(', ')}</td><td>jumps ${p.delta.jumps} · trims ${p.delta.trims} · short ${p.delta.short_stitches} · stitches ${p.delta.stitches} · travel ${p.delta.travel_mm}mm</td><td>${tag(p.status)}<div class=note>${esc(p.note)}</div></td><td><button ${p.status==='PROPOSED'?'':'disabled'} onclick="applyRepair('${p.name}')">Apply</button></td></tr>`).join('')||'<tr><td colspan=5>No applicable repairs</td></tr>'}</table>
+${J.applied_repairs.length?`<p class=note>Applied so far: ${J.applied_repairs.map(esc).join(', ')} (approval was reset)</p>`:''}`}
+const drop=$('drop');drop.onclick=()=>$('file').click();$('file').onchange=e=>upload(e.target.files);
+['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over')}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',e=>upload(e.dataTransfer.files));init();
+
+(function(){const E=id=>document.getElementById(id);const out=E('v06out');const show=x=>out.textContent=typeof x==='string'?x:JSON.stringify(x,null,1);
+const H=()=>({'Content-Type':'application/json',...(typeof hdr==='function'?hdr():{})});
+const call=(p,b,m)=>fetch('/api'+p,{method:m||(b===undefined?'GET':'POST'),headers:H(),body:b===undefined?undefined:JSON.stringify(b)}).then(async r=>({s:r.status,j:await r.json().catch(()=>({}))}));
+const jid=()=>{const j=(typeof JOB!=='undefined')?JOB:null;return j&&typeof j==='object'?(j.job_id||j.id):j;};
+let PROP=null,EXCL=new Set(),EDITS={};
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function status(){const r=await call('/ai/status');if(r.s!==200)return;const j=r.j;E('aiMode').value=j.mode;E('apMode').value=j.approval_mode;
+ const on=Object.entries(j.providers).filter(([k,v])=>v.configured).map(([k])=>k);
+ E('aiBadge').textContent=j.mode==='LOCAL'?'LOCAL rules (no cloud)':j.mode+' - keys set: '+(on.join(', ')||'none');
+ E('aiPriv').textContent=j.cloud_processing?'Cloud sees: prompt text + object role names only. Images are never sent unless you consent to visual QC.':'Nothing leaves this computer.';}
+async function emb(){const r=await call('/emb/status');const b=E('v06emb');const bs=r.j.capability&&r.j.capability.button;if(bs){b.textContent=bs.label;b.disabled=!bs.enabled;b.title=bs.reason;}
+ b.onclick=async()=>{const x=await call('/jobs/'+jid()+'/emb/export',{});show(x.j.ui||x.j);};}
+function metrics(){const id=jid();if(!id)return;call('/jobs/'+id+'/ai/summary').then(r=>{if(r.s===200){E('pbUndo').disabled=!r.j.can_undo;E('pbRedo').disabled=!r.j.can_redo;}});}
+function chips(){const box=E('pbChips');box.innerHTML='';if(!PROP)return;
+ PROP.chips.forEach(c=>{const d=document.createElement('span');const off=EXCL.has(c.index);
+  d.style.cssText='padding:3px 8px;border-radius:12px;border:1px solid #8886;'+(off?'opacity:.4;text-decoration:line-through;':'')+({low:'background:#10b98122',medium:'background:#f59e0b22',high:'background:#ef444422'}[c.risk]||'');
+  d.innerHTML=esc(c.label)+' ';
+  Object.keys(c.editable).forEach(k=>{const [lo,hi]=c.editable[k];const i=document.createElement('input');i.type='number';i.step='0.05';i.min=lo;i.max=hi;i.value=c.params[k];i.style.width='64px';i.title=k+' ('+lo+'..'+hi+')';
+   i.onchange=()=>{(EDITS[c.index]=EDITS[c.index]||{})[k]=parseFloat(i.value);};d.appendChild(i);});
+  const x=document.createElement('button');x.textContent=off?'+':'x';x.title=off?'include this step':'drop this step';x.onclick=()=>{off?EXCL.delete(c.index):EXCL.add(c.index);chips();};d.appendChild(x);box.appendChild(d);});}
+function render(p){PROP=p;EXCL=new Set();EDITS={};chips();const r=p.router,d=p.decision;
+ E('pbMeta').textContent='via '+r.provider+(r.model?' / '+r.model:'')+' ('+Math.round(r.latency_ms)+' ms)'+(r.fallback_to_local?'  [fell back to LOCAL - cloud failed]':'')+(r.fallback_used&&!r.fallback_to_local?'  [fallback provider used]':'')+'   risk: '+d.risk+'   '+d.reason+'   status: '+p.status;
+ E('pbOk').disabled=p.status!=='pending';E('pbNo').disabled=p.status!=='pending';
+ const o={status:p.status,attempts:r.attempts,rejected_steps:p.errors,not_understood:p.unrecognised};
+ if(p.preview){o.preview_before_after=p.preview.error?p.preview:{before:pick(p.preview.before),after:pick(p.preview.after),skipped:p.preview.skipped,notes:p.preview.notes};}
+ if(p.result){o.applied=p.result.applied.map(a=>a.step.op+' -> '+(a.objects||[]).join(',')+(a.note?'  ('+a.note+')':''));o.skipped=p.result.skipped;o.actions=p.result.actions;}
+ show(o);metrics();}
+const pick=m=>m&&({stitches:m.stitch_count,jumps:m.jump_count,trims:m.trim_count,protected_crossings:m.center_crossing_travel,short_stitches:m.short_stitch_count,qc_errors:m.qc_errors,over_max_stitch:m.over_max_stitch});
+E('pbSend').onclick=async()=>{const id=jid();if(!id){show('Upload and analyze a design first.');return;}E('pbSend').disabled=true;show('Parsing...');
+ try{const r=await call('/jobs/'+id+'/ai/command',{text:E('pbText').value});if(r.s!==200)show(r.j);else render(r.j);}finally{E('pbSend').disabled=false;}};
+E('pbOk').onclick=async()=>{const id=jid();const r=await call('/jobs/'+id+'/ai/approve',{proposal_id:PROP.proposal_id,exclude:[...EXCL],edits:EDITS});if(r.s!==200){show(r.j);return;}render(r.j.proposal);};
+E('pbNo').onclick=async()=>{const id=jid();const r=await call('/jobs/'+id+'/ai/reject',{proposal_id:PROP.proposal_id});render(r.j);};
+E('pbUndo').onclick=async()=>{const r=await call('/jobs/'+jid()+'/ai/undo',{});show({undone:r.j.changed,metrics:pick(r.j.summary.metrics)});metrics();};
+E('pbRedo').onclick=async()=>{const r=await call('/jobs/'+jid()+'/ai/redo',{});show({redone:r.j.changed,metrics:pick(r.j.summary.metrics)});metrics();};
+E('pbQc').onclick=async()=>{const id=jid();if(!id){show('Upload and analyze a design first.');return;}const r=await call('/jobs/'+id+'/qc2',{});show(r.s===200?{gates:r.j.result.gates,qc_errors:r.j.result.qc_after.error_count,package:r.j.result.package&&r.j.result.package.files}:r.j);};
+E('pbHand').onclick=async()=>{const id=jid();if(!id){show('Upload and analyze a design first.');return;}const r=await call('/jobs/'+id+'/emb/handoff',{});show(r.s===200?{note:'NOT an EMB file: verified DST + object SVG + parameter manifest for Wilcom',files:r.j.files,dst:r.j.dst}:r.j);};
+E('aiMode').onchange=async()=>{await call('/ai/config',{ai_mode:E('aiMode').value});status();};E('apMode').onchange=async()=>{await call('/ai/config',{approval_mode:E('apMode').value});status();};
+status();emb();})();</script></body></html>
