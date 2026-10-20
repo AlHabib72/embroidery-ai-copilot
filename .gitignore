@@ -7,3 +7,14 @@ __pycache__/
 .venv/
 node_modules/
 .next/
+
+# --- Outreach CRM runtime data -------------------------------------------
+# These hold live lead and outreach history.  They are local working data,
+# not source.  Commit them only if you deliberately want to share a snapshot.
+sent_log.csv
+rejected_leads.csv
+suppressed.csv
+campaign.lock
+*.lock
+cv.pdf
+portfolio.pdf

@@ -1,0 +1,3 @@
+name,email,subject,company,niche,source_url,discovered_at,status,verified,notes
+StitchWorks Inc,info@stitchworks.com,Embroidery Copilot,StitchWorks Inc,embroidery,,,pending,unknown,SAMPLE DATA from the old lead_finder fallback - not a real discovered lead. Do not contact.
+Threads Co,sales@threadsco.com,Embroidery Copilot,Threads Co,custom apparel,,,pending,unknown,SAMPLE DATA from the old lead_finder fallback - not a real discovered lead. Do not contact.

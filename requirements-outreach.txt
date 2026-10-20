@@ -1,0 +1,27 @@
+# EmbroideryCopilot Outreach CRM -- runtime dependencies.
+#
+#   python -m venv .venv
+#   .\.venv\Scripts\Activate.ps1
+#   pip install -r requirements-outreach.txt
+#
+# Verified on Windows 11 with Python 3.14.7.
+
+# Desktop GUI
+customtkinter>=6.0.0
+
+# Telegram bot.  NOTE: install pyTelegramBotAPI, NOT "telebot" -- the PyPI
+# package named "telebot" (0.0.5) is an unrelated placeholder and does not
+# provide the library.
+pyTelegramBotAPI>=4.37.1
+
+# Web search for lead discovery.  "ddgs" is the current name of this
+# package; "duckduckgo-search" is the older name and still works.
+ddgs>=9.0.0
+
+# Page fetching and parsing
+requests>=2.34.0
+beautifulsoup4>=4.15.0
+
+# Optional: nicer .env parsing.  The app falls back to a built-in parser
+# when this is absent, so it is not required.
+python-dotenv>=1.0.0
